@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mark of the Beast — Part 2</title>
+<link href="https://api.fontshare.com/v2/css?f[]=cofo-sans@400,500,700,800&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #f3f3f3;
+    --surface: #ffffff;
+    --surface2: #f0ede8;
+    --gold: #111111;
+    --gold-light: #111111;
+    --gold-dim: #333333;
+    --crimson: #c21e1e;
+    --text: #111111;
+    --text-muted: #222222;
+    --text-dim: #555555;
+    --border: #d8d0c4;
+    --border-gold: #c0b090;
+    --accent-teal: #111111;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'CoFo Sans', sans-serif;
+    font-size: 13px;
+    line-height: 1.85;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse at 15% 10%, rgba(212,84,25,0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 90%, rgba(194,30,30,0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .header { text-align: center; padding: 56px 0 44px; border-bottom: 1px solid var(--border); margin-bottom: 48px; }
+  .header-eyebrow { font-family: 'CoFo Sans', sans-serif; font-size: 11px; letter-spacing: 0.3em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 16px; font-weight: 600; }
+  .header h1 { font-family: 'CoFo Sans', sans-serif; font-size: clamp(28px, 5vw, 44px); font-weight: 800; color: var(--text); line-height: 1.15; text-shadow: none; margin-bottom: 8px; }
+  .header h2 { font-family: 'CoFo Sans', sans-serif; font-size: clamp(13px, 2.2vw, 16px); font-weight: 500; color: var(--text-dim); letter-spacing: 0.05em; margin-bottom: 28px; }
+  .header-rule { display: flex; align-items: center; gap: 16px; justify-content: center; }
+  .header-rule span { height: 1px; width: 80px; background: var(--border); }
+  .header-rule span:last-child { background: var(--border); }
+  .header-rule .diamond { width: 6px; height: 6px; background: var(--text-dim); transform: rotate(45deg); flex-shrink: 0; }
+
+  /* ── ANCHOR VERSE ── */
+  .anchor-verse { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--crimson); border-radius: 6px; padding: 28px 32px; margin: 40px 0 50px; position: relative; }
+  .anchor-verse::before { content: '\201C'; font-family: 'CoFo Sans', sans-serif; font-size: 80px; color: var(--crimson); opacity: 0.12; position: absolute; top: -10px; left: 16px; line-height: 1; }
+  .anchor-verse p { font-style: italic; font-size: 17px; color: var(--text); margin-bottom: 10px; padding-left: 16px; }
+  .anchor-verse cite { font-family: 'CoFo Sans', sans-serif; font-size: 11px; letter-spacing: 0.2em; color: var(--text-dim); text-transform: uppercase; padding-left: 16px; }
+
+  /* ── BRIDGE ── */
+  .bridge-band { background: var(--surface); border: 1px solid var(--border-gold); border-left: 4px solid var(--text); border-radius: 4px; padding: 18px 26px; margin: 0 0 50px; display: flex; align-items: center; gap: 16px; }
+  .bridge-band .bb-icon { font-family: 'CoFo Sans', sans-serif; font-size: 18px; color: var(--text); flex-shrink: 0; }
+  .bridge-band p { font-family: 'CoFo Sans', sans-serif; font-size: 12px; letter-spacing: 0.08em; color: var(--text-muted); margin: 0; }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 60px; }
+  .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+  .section-num { font-family: 'CoFo Sans', sans-serif; font-size: 11px; letter-spacing: 0.3em; color: var(--text); text-transform: uppercase; white-space: nowrap; font-weight: 700; }
+  .section-rule { flex: 1; height: 2px; background: linear-gradient(to right, var(--gold), transparent); }
+  .section h3 { font-family: 'CoFo Sans', sans-serif; font-size: clamp(17px, 2.8vw, 22px); font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 6px; }
+  .section-subtitle { font-family: 'CoFo Sans', sans-serif; font-style: italic; font-size: 15px; color: var(--text-dim); margin-bottom: 20px; }
+  .section p { color: var(--text); margin-bottom: 16px; font-size: 16px; }
+
+  /* ── SCRIPTURE ── */
+  .scripture { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--text); border-radius: 8px; padding: 20px 24px; margin: 20px 0; }
+  .scripture-label { font-family: 'CoFo Sans', sans-serif; font-size: 10px; letter-spacing: 0.3em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+  .scripture p { font-style: italic; color: var(--text); margin-bottom: 6px; font-size: 16px; }
+  .scripture cite { font-family: 'CoFo Sans', sans-serif; font-size: 11px; letter-spacing: 0.18em; color: var(--text-dim); text-transform: uppercase; }
+
+  /* ── LANGUAGE BLOCK ── */
+  .language-block { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--text); border-radius: 8px; padding: 22px 26px; margin: 22px 0; }
+  .language-block .lang-label { font-family: 'CoFo Sans', sans-serif; font-size: 10px; letter-spacing: 0.3em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 14px; font-weight: 700; }
+  .lang-entry { margin-bottom: 14px; }
+  .lang-entry:last-child { margin-bottom: 0; }
+  .lang-term { font-size: 18px; color: var(--text); font-style: italic; display: block; margin-bottom: 4px; font-family: 'CoFo Sans', sans-serif; font-weight: 600; }
+  .lang-transliteration { font-family: 'CoFo Sans', sans-serif; font-size: 11px; color: var(--text-dim); letter-spacing: 0.1em; display: block; margin-bottom: 4px; }
+  .lang-definition { font-size: 14px; color: var(--text); }
+
+  /* ── INSIGHT CARD ── */
+  .insight-card { background: var(--surface2); border: 1px solid var(--border); border-left: 4px solid var(--text); border-radius: 8px; padding: 22px 26px; margin: 22px 0; }
+  .insight-card .card-label { font-family: 'CoFo Sans', sans-serif; font-size: 10px; letter-spacing: 0.3em; color: var(--text); text-transform: uppercase; margin-bottom: 12px; font-weight: 600; }
+  .insight-card p { font-size: 15px; color: var(--text-muted); margin-bottom: 10px; }
+  .insight-card p:last-child { margin-bottom: 0; }
+
+  /* ── HISTORICAL NOTE ── */
+  .historical-note { background: #fdf0f0; border: 1px solid #e8b8b8; border-left: 3px solid var(--crimson); border-radius: 8px; padding: 20px 24px; margin: 22px 0; }
+  .historical-note .hist-label { font-family: 'CoFo Sans', sans-serif; font-size: 10px; letter-spacing: 0.3em; color: var(--crimson); text-transform: uppercase; margin-bottom: 12px; font-weight: 600; }
+  .historical-note p { font-size: 15px; color: #111111; margin-bottom: 10px; }
+  .historical-note p:last-child { margin-bottom: 0; }
+
+  /* ── TIMELINE ── */
+  .timeline { margin: 22px 0; position: relative; padding-left: 32px; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(to bottom, var(--gold), var(--border)); }
+  .timeline-item { position: relative; margin-bottom: 22px; }
+  .timeline-item:last-child { margin-bottom: 0; }
+  .timeline-item::before { content: ''; position: absolute; left: -28px; top: 8px; width: 10px; height: 10px; border-radius: 50%; background: var(--text); border: 2px solid var(--bg); }
+  .timeline-item .ti-ref { font-family: 'CoFo Sans', sans-serif; font-size: 11px; letter-spacing: 0.2em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px; font-weight: 700; }
+  .timeline-item .ti-text { font-size: 16px; color: var(--text-muted); line-height: 1.7; }
+  .timeline-item .ti-note { font-size: 14px; color: var(--text-dim); font-style: italic; margin-top: 4px; }
+
+  /* ── NT EVIDENCE TABLE ── */
+  .nt-table { width: 100%; border-collapse: collapse; margin: 22px 0; font-size: 15px; }
+  .nt-table thead tr { background: var(--surface2); }
+  .nt-table th { font-family: 'CoFo Sans', sans-serif; font-size: 10px; letter-spacing: 0.22em; color: var(--text-dim); text-transform: uppercase; padding: 11px 14px; text-align: left; border-bottom: 2px solid var(--border); font-weight: 600; }
+  .nt-table td { padding: 11px 14px; color: var(--text-muted); border-bottom: 1px solid var(--border); vertical-align: top; font-size: 14px; }
+  .nt-table tr:nth-child(even) { background: #faf6f0; }
+  .nt-table tr:last-child td { border-bottom: none; }
+  .nt-table td:first-child { font-family: 'CoFo Sans', sans-serif; font-size: 12px; color: var(--text-dim); white-space: nowrap; font-weight: 600; }
+  .nt-table td.who { color: var(--text); font-style: italic; }
+
+  /* ── TRINITY PARALLEL TABLE ── */
+  .trinity-table { width: 100%; border-collapse: collapse; margin: 22px 0; font-size: 15px; }
+  .trinity-table thead tr { background: var(--surface2); }
+  .trinity-table th { font-family: 'CoFo Sans', sans-serif; font-size: 10px; letter-spacing: 0.22em; color: var(--text-dim); text-transform: uppercase; padding: 12px 14px; text-align: left; border-bottom: 2px solid var(--border); }
+  .trinity-table th:nth-child(2) { color: #111111; }
+  .trinity-table th:nth-child(3) { color: var(--crimson); }
+  .trinity-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; font-size: 14px; color: var(--text); }
+  .trinity-table tr:last-child td { border-bottom: none; }
+  .trinity-table tr:nth-child(even) { background: #faf6f0; }
+  .trinity-table td:first-child { font-family: 'CoFo Sans', sans-serif; font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; font-weight: 600; }
+  .trinity-table td:nth-child(2) { color: #111111; background: rgba(0,0,0,0.03); }
+  .trinity-table td:nth-child(3) { color: #111111; background: rgba(194,30,30,0.03); }
+  .trinity-table td:nth-child(4) { color: var(--text-muted); font-style: italic; font-size: 13px; }
+
+  /* ── ECHO TABLE ── */
+  .echo-table { width: 100%; border-collapse: collapse; margin: 22px 0; font-size: 15px; }
+  .echo-table thead tr { background: var(--surface2); }
+  .echo-table th { font-family: 'CoFo Sans', sans-serif; font-size: 10px; letter-spacing: 0.22em; color: var(--text-dim); text-transform: uppercase; padding: 11px 14px; text-align: left; border-bottom: 2px solid var(--border); font-weight: 600; }
+  .echo-table td { padding: 11px 14px; color: var(--text-muted); border-bottom: 1px solid var(--border); vertical-align: top; font-size: 14px; }
+  .echo-table tr:nth-child(even) { background: #faf6f0; }
+  .echo-table tr:last-child td { border-bottom: none; }
+  .echo-table td:first-child { font-family: 'CoFo Sans', sans-serif; font-size: 12px; color: var(--text); white-space: nowrap; font-weight: 600; }
+  .echo-table td.symbol { color: var(--text); }
+
+  /* ── SEAL CONTRAST ── */
+  .seal-contrast { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 22px 0; }
+  .seal-panel { border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
+  .seal-panel.beast { background: #fdf0f0; border-top: 3px solid var(--crimson); }
+  .seal-panel.god   { background: var(--surface); border-top: 3px solid var(--text); }
+  .seal-panel .sp-label { font-family: 'CoFo Sans', sans-serif; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 14px; font-weight: 600; }
+  .seal-panel.beast .sp-label { color: var(--crimson); }
+  .seal-panel.god   .sp-label { color: var(--text-dim); }
+  .seal-panel ul { list-style: none; padding: 0; }
+  .seal-panel li { font-size: 14px; padding: 6px 0 6px 18px; position: relative; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+  .seal-panel li:last-child { border-bottom: none; }
+  .seal-panel.beast li::before { content: '✕'; position: absolute; left: 0; color: var(--crimson); font-size: 10px; top: 10px; }
+  .seal-panel.god   li::before { content: '✦'; position: absolute; left: 0; color: var(--text-dim); font-size: 8px; top: 11px; }
+
+  /* ── TRINITY GRID ── */
+  .trinity-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 22px 0; }
+  .trinity-panel { border: 1px solid var(--border); border-radius: 8px; padding: 24px; text-align: center; }
+  .trinity-panel.true-t  { background: var(--surface); border-top: 3px solid var(--text); }
+  .trinity-panel.false-t { background: #fdf0f0; border-top: 3px solid var(--crimson); }
+  .trinity-panel .tp-label { font-family: 'CoFo Sans', sans-serif; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 12px; font-weight: 600; }
+  .trinity-panel.true-t  .tp-label { color: var(--text-dim); }
+  .trinity-panel.false-t .tp-label { color: var(--crimson); }
+  .trinity-panel .tp-num { font-family: 'CoFo Sans', sans-serif; font-size: 36px; font-weight: 800; display: block; margin-bottom: 14px; line-height: 1; }
+  .trinity-panel.true-t  .tp-num { color: var(--text); }
+  .trinity-panel.false-t .tp-num { color: var(--crimson); }
+  .trinity-panel .tp-members { font-size: 14px; color: var(--text-muted); line-height: 2; }
+  .trinity-panel .tp-members em { font-size: 13px; color: var(--text-dim); display: block; margin-top: 8px; line-height: 1.5; }
+
+  /* ── HAND-FOREHEAD VISUAL ── */
+  .hf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 22px 0; }
+  .hf-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; text-align: center; }
+  .hf-panel.hand { border-top: 3px solid var(--text); }
+  .hf-panel.fore { border-top: 3px solid var(--crimson); }
+  .hf-panel .hf-icon { font-size: 32px; display: block; margin-bottom: 10px; }
+  .hf-panel.hand .hf-icon { color: var(--text); }
+  .hf-panel.fore .hf-icon { color: var(--crimson); }
+  .hf-panel .hf-label { font-family: 'CoFo Sans', sans-serif; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+  .hf-panel.hand .hf-label { color: var(--text-dim); }
+  .hf-panel.fore .hf-label { color: var(--crimson); }
+  .hf-panel .hf-meaning { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+  .hf-panel .hf-refs { font-family: 'CoFo Sans', sans-serif; font-size: 11px; color: var(--text-dim); margin-top: 10px; letter-spacing: 0.1em; }
+
+  /* ── KEY LESSONS ── */
+  .key-lessons { margin: 22px 0; }
+  .key-lessons .kl-label { font-family: 'CoFo Sans', sans-serif; font-size: 10px; letter-spacing: 0.3em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 14px; font-weight: 600; }
+  .key-lessons ul { list-style: none; padding: 0; }
+  .key-lessons li { padding: 8px 0 8px 24px; position: relative; color: var(--text); font-size: 15px; border-bottom: 1px solid var(--border); }
+  .key-lessons li:last-child { border-bottom: none; }
+  .key-lessons li::before { content: '◆'; position: absolute; left: 0; color: var(--text); font-size: 8px; top: 14px; }
+
+  /* ── REFLECTION ── */
+  .reflection { background: var(--surface); border: 1px solid var(--border-gold); border-left: 3px solid var(--text); border-radius: 8px; padding: 24px 28px; margin: 22px 0; }
+  .reflection .ref-label { font-family: 'CoFo Sans', sans-serif; font-size: 10px; letter-spacing: 0.3em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 16px; font-weight: 600; }
+  .reflection ol { padding-left: 20px; }
+  .reflection li { color: var(--text-muted); font-size: 15px; font-style: italic; margin-bottom: 10px; padding-left: 8px; }
+  .reflection li:last-child { margin-bottom: 0; }
+
+  /* ── DIVIDER ── */
+  .divider { display: flex; align-items: center; gap: 16px; margin: 44px 0; }
+  .divider-line { flex: 1; height: 1px; background: var(--border-gold); }
+  .divider-icon { font-family: 'CoFo Sans', sans-serif; font-size: 14px; color: var(--text); }
+
+  /* ── CONCLUSION ── */
+  .conclusion { background: var(--surface); border: 1px solid var(--border-gold); border-top: 3px solid var(--text); border-radius: 4px; padding: 36px 40px; margin-top: 50px; text-align: center; }
+  .conclusion .conc-label { font-family: 'CoFo Sans', sans-serif; font-size: 10px; letter-spacing: 0.35em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 20px; font-weight: 600; }
+  .conclusion h3 { font-family: 'CoFo Sans', sans-serif; font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 20px; }
+  .conclusion p { color: var(--text-muted); font-size: 16px; max-width: 640px; margin: 0 auto 16px; }
+  .conclusion .final-verse { font-style: italic; color: var(--text); font-size: 17px; border-top: 1px solid var(--border-gold); padding-top: 20px; margin-top: 20px; }
+  .conclusion .final-cite { font-family: 'CoFo Sans', sans-serif; font-size: 11px; letter-spacing: 0.2em; color: var(--text-dim); text-transform: uppercase; display: block; margin-top: 8px; font-weight: 600; }
+
+  .intro-block { font-size: 16px; color: var(--text-muted); line-height: 1.9; border-left: 3px solid var(--text); padding-left: 24px; margin-bottom: 28px; }
+
+  /* ── BLUE LAWS ACCORDION ── */
+  .blue-laws-toggle {
+    background: linear-gradient(135deg, #e8f4fc, #ddeef8);
+    border: 1px solid #8abcd8;
+    border-left: 5px solid #2a7aaa;
+    border-radius: 6px;
+    padding: 20px 22px;
+    margin: 24px 0 0;
+    cursor: pointer;
+    transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+    box-shadow: 0 0 12px 2px rgba(42,122,170,0.2);
+    animation: bl-pulse 2.2s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+  }
+  @keyframes bl-pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(42,122,170,0.55), 0 0 12px 2px rgba(42,122,170,0.25); }
+    60%  { box-shadow: 0 0 0 14px rgba(42,122,170,0), 0 0 24px 6px rgba(42,122,170,0); }
+    100% { box-shadow: 0 0 0 0 rgba(42,122,170,0), 0 0 12px 2px rgba(42,122,170,0); }
+  }
+  .blue-laws-toggle::after {
+    content: 'CLICK TO EXPAND';
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    font-family: 'CoFo Sans', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: #1a5a80;
+    background: rgba(42,122,170,0.1);
+    border: 1px solid rgba(42,122,170,0.3);
+    border-radius: 20px;
+    padding: 3px 10px;
+    pointer-events: none;
+  }
+  .blue-laws-toggle.active::after { content: 'CLICK TO CLOSE'; color: #1a4a68; }
+  .blue-laws-toggle:hover, .blue-laws-toggle.active {
+    background: linear-gradient(135deg, #d8ecf8, #cce4f4);
+    border-left-color: #1a6a9a;
+    box-shadow: 0 4px 20px rgba(42,122,170,0.2);
+    animation: none;
+  }
+  .bl-toggle-inner { display: flex; align-items: center; gap: 16px; }
+  .bl-toggle-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(42,122,170,0.12);
+    border: 1.5px solid #2a7aaa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: #1a5a80;
+    flex-shrink: 0;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .bl-toggle-text { display: flex; flex-direction: column; gap: 4px; }
+  .bl-toggle-title { font-family: 'CoFo Sans', sans-serif; font-size: 13px; font-weight: 600; color: #1a3a58; letter-spacing: 0.05em; }
+  .bl-toggle-sub { font-family: 'CoFo Sans', sans-serif; font-size: 13px; color: var(--text-dim); font-style: italic; }
+
+  .blue-laws-panel {
+    background: #f0f6fc;
+    border: 1px solid #b0d0e8;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    padding: 24px;
+    margin-bottom: 22px;
+  }
+  .bl-intro { border-bottom: 1px solid #c0d8ec; padding-bottom: 16px; margin-bottom: 18px; }
+  .bl-intro p { font-size: 14px; color: #1a2a3a; line-height: 1.75; }
+
+  .bl-legend {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    font-family: 'CoFo Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+  .bl-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; display: inline-block; }
+  .bl-dot.red    { background: #c04040; }
+  .bl-dot.orange { background: #c07830; }
+  .bl-dot.yellow { background: #a89030; }
+  .bl-dot.green  { background: #2a8a50; }
+
+  .bl-tier { margin-bottom: 22px; }
+  .bl-tier-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    border-radius: 4px 4px 0 0;
+    flex-wrap: wrap;
+  }
+  .red-tier    { background: rgba(180,50,50,0.1); border-left: 4px solid #c04040; }
+  .orange-tier { background: rgba(180,110,40,0.1); border-left: 4px solid #c07830; }
+  .yellow-tier { background: rgba(160,140,40,0.1); border-left: 4px solid #a89030; }
+  .green-tier  { background: rgba(40,130,70,0.1); border-left: 4px solid #2a8a50; }
+  .bl-tier-badge {
+    font-family: 'CoFo Sans', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .bl-tier-title {
+    font-family: 'CoFo Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.06em;
+  }
+  .bl-tier-desc { font-size: 13px; color: var(--text-muted); font-style: italic; }
+
+  .bl-state {
+    background: rgba(255,255,255,0.6);
+    border: 1px solid #c0d8ec;
+    border-top: none;
+    padding: 14px 16px;
+    margin-bottom: 2px;
+  }
+  .bl-state:last-of-type { border-radius: 0 0 4px 4px; }
+  .bl-state-name {
+    font-family: 'CoFo Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+    letter-spacing: 0.04em;
+  }
+  .bl-note { font-size: 11px; color: var(--text-dim); font-family: 'CoFo Sans', sans-serif; letter-spacing: 0; }
+  .bl-state-tag {
+    font-size: 12px;
+    color: #1a5a80;
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+  .bl-rows { display: flex; flex-direction: column; gap: 6px; }
+  .bl-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .bl-icon { font-size: 12px; flex-shrink: 0; width: 16px; text-align: center; }
+  .bl-icon.no   { color: #c03030; }
+  .bl-icon.warn { color: #b07020; }
+  .bl-icon.ok   { color: #2a8a50; }
+  .bl-cat {
+    font-family: 'CoFo Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    white-space: nowrap;
+    min-width: 100px;
+  }
+  .bl-detail { font-size: 13px; color: var(--text-muted); }
+
+  .bl-states-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+    border: 1px solid #c0d8ec;
+    border-top: none;
+    padding: 14px;
+    border-radius: 0 0 4px 4px;
+    background: rgba(255,255,255,0.5);
+  }
+  .bl-state-mini {
+    background: #ffffff;
+    border: 1px solid #d0e4f0;
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .bl-state-mini strong { color: var(--text); font-family: 'CoFo Sans', sans-serif; font-size: 12px; font-weight: 600; }
+  .bl-state-mini .bl-dot { margin-bottom: 4px; }
+
+  .bl-source {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-family: 'CoFo Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: #1a5a80;
+    background: rgba(42,122,170,0.08);
+    border: 1px solid rgba(42,122,170,0.25);
+    border-radius: 3px;
+    padding: 1px 7px;
+    text-decoration: none;
+    vertical-align: middle;
+    margin-left: 4px;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+  .bl-source:hover {
+    background: rgba(42,122,170,0.18);
+    color: #0a3a58;
+    border-color: rgba(42,122,170,0.5);
+    text-decoration: none;
+  }
+  .bl-source::before { content: '↗'; font-size: 9px; }
+
+  .bl-close-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 24px;
+    padding: 14px 22px;
+    background: linear-gradient(135deg, #f0eaf8, #e8e0f4);
+    border: 1px solid #c0a0e0;
+    border-top: 2px solid #9060c0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  .bl-close-bar:hover {
+    background: linear-gradient(135deg, #e8dff5, #ddd4f0);
+    box-shadow: 0 0 16px rgba(144,96,192,0.25);
+  }
+  .bl-close-icon {
+    font-size: 12px;
+    color: #6a30a8;
+  }
+  .bl-close-text {
+    font-family: 'CoFo Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    color: #5a208a;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .bl-footer {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #c0d8ec;
+  }
+  .bl-footer p { font-size: 13px; color: var(--text-dim); font-style: italic; line-height: 1.75; }
+
+  @media (max-width: 600px) {
+    .bl-tier-header { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .bl-states-grid { grid-template-columns: 1fr 1fr; }
+    .bl-cat { min-width: 80px; }
+  }
+
+  strong { color: var(--text); font-weight: 700; }
+  em { font-style: italic; }
+
+  /* ── SECTION CONCLUSION ── */
+  .section-conclusion {
+    font-family: 'CoFo Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+    text-align: center;
+    border-top: 2px solid var(--text);
+    border-bottom: 2px solid var(--text);
+    padding: 24px 32px;
+    margin: 28px 0 0;
+    background: var(--surface);
+  }
+
+  /* ── EXTRA CREDIT ── */
+  .extra-credit-heading {
+    font-family: 'CoFo Sans', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text);
+    text-align: center;
+    letter-spacing: 0.05em;
+    padding: 40px 0 10px;
+    position: relative;
+  }
+  .extra-credit-heading::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--text);
+    margin: 10px auto 0;
+    border-radius: 2px;
+  }
+
+  /* ── DRAGON COLOR ── */
+  .dragon-red { color: var(--crimson); font-weight: inherit; }
+
+  /* ── VERSE LINKS ── */
+  .verse-link {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: var(--crimson);
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
+    transition: color 0.15s;
+  }
+  .verse-link:hover {
+    color: var(--crimson);
+    text-decoration-color: var(--crimson);
+  }
+  cite .verse-link, .scripture-label .verse-link {
+    font-weight: inherit;
+    font-style: inherit;
+  }
+
+  @media (max-width: 620px) {
+    .seal-contrast, .trinity-grid, .hf-grid { grid-template-columns: 1fr; }
+    .container { padding: 0 16px 60px; }
+    .anchor-verse { padding: 20px; }
+    .conclusion { padding: 28px 20px; }
+    .bridge-band { flex-direction: column; gap: 8px; }
+    .nt-table, .echo-table { font-size: 13px; }
+    .nt-table th, .nt-table td,
+    .echo-table th, .echo-table td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Mark of the Beast</h1>
+    <h2>Part 2 — The Mark Identified: Worship, Law &amp; the Final Allegiance</h2>
+    <div class="header-rule">
+      <span></span><div class="diamond"></div><span></span>
+    </div>
+  </div>
+
+  <!-- BRIDGE -->
+  <div class="bridge-band">
+    <span class="bb-icon">←</span>
+    <p><strong>Continuing from Part 1 —</strong> The beast represents kingdoms, empires, and religious-political institutions. Part 2 now identifies <strong>what the mark itself is</strong>.</p>
+  </div>
+
+  <!-- ANCHOR VERSE -->
+  <div class="anchor-verse">
+    <p>"Then I saw another beast coming up out of the earth… He performs great signs… and he deceives those who dwell on the earth… He causes all… to be given a mark on their right hand or on their forehead… no one will be able to buy or to sell, except the one who has the mark… for the number is that of a man; and his number is six hundred and sixty-six."</p>
+    <cite>— <a href="https://www.biblegateway.com/passage/?search=Revelation+13:11,+13–14,+16–18&version=NKJV" target="_blank" class="verse-link">Revelation 13:11, 13–14, 16–18</a> (NKJV)</cite>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION I — THE CORE ISSUE: WORSHIP
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">I</span><div class="section-rule"></div></div>
+    <h3>The Core Issue: Worship, Not Commerce</h3>
+    <p class="section-subtitle">The economic dimension is a consequence — the spiritual issue is allegiance</p>
+
+    <p class="intro-block">To understand why worship is the central issue in Revelation 13, it is necessary to go back further than Babylon, further than Sinai, further even than Eden. The conflict over worship did not begin on earth. It began in heaven — with the being Scripture calls Lucifer. The demand for worship that the beast makes in Revelation 13 is not a new idea. It is the oldest ambition in the universe, now expressing itself in its final and most global form.</p>
+
+    <div class="scripture">
+      <p class="scripture-label"><a href="https://www.biblegateway.com/passage/?search=Isaiah+14:12–14&version=NKJV" target="_blank" class="verse-link">Isaiah 14:12–14</a>— The Origin of the Conflict</p>
+      <p>"How you have fallen from heaven, O star of the morning, son of the dawn! You have been cut down to the earth, you who have weakened the nations! But you said in your heart: 'I will ascend to heaven; I will raise my throne above the stars of God… I will make myself like the Most High.'"</p>
+      <cite><a href="https://www.biblegateway.com/passage/?search=Isaiah+14:12–14&version=NKJV" target="_blank" class="verse-link">Isaiah 14:12–14 (NKJV)</a></cite>
+    </div>
+
+    <div class="language-block">
+      <p class="lang-label">Hebrew — <a href="https://www.biblegateway.com/passage/?search=Isaiah+14:12&version=NKJV" target="_blank" class="verse-link">Isaiah 14:12</a></p>
+      <div class="lang-entry">
+        <span class="lang-term">הֵילֵל בֶּן־שַׁחַר (Hêlēl ben-šaḥar)</span>
+        <span class="lang-transliteration">hay-lale' ben shaw-khar' — "Shining One, Son of the Dawn"</span>
+        <span class="lang-definition">The Hebrew name rendered "Lucifer" in older translations literally means the <em>shining one</em> or <em>light-bearer</em> — a title reflecting his original brilliance and exalted position. This was not a being of darkness by creation. He was the most glorious of all created beings, positioned closest to the throne of God. His fall is therefore not the story of a small creature overreaching. It is the story of the greatest created being choosing self above God.</span>
+      </div>
+      <div class="lang-entry">
+        <span class="lang-term">אֶדַּמֶּה לְעֶלְיוֹן (ʾeddammeh leʿelyôn)</span>
+        <span class="lang-transliteration">"I will make myself like the Most High"</span>
+        <span class="lang-definition">The verb <em>dāmāh</em> means to resemble, to be like — to assume the position and character of another. This is the fifth and final "I will" of Lucifer, and it is the most revealing: he did not merely want power. He wanted to <em>be</em> God — to occupy God's position, receive God's honor, and receive what God receives above all else: <strong>worship</strong>.</span>
+      </div>
+    </div>
+
+    <p style="font-family:'Cinzel',serif; font-size:10px; letter-spacing:0.3em; color:var(--gold-dim); text-transform:uppercase; margin: 28px 0 14px;">The Five "I Wills" — Lucifer's Progression of Pride (<a href="https://www.biblegateway.com/passage/?search=Isaiah+14:13–14&version=NKJV" target="_blank" class="verse-link">Isaiah 14:13–14</a>)</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <p class="ti-ref">"I will ascend to heaven"</p>
+        <p class="ti-text">The first claim — a desire to occupy the highest realm, the very dwelling place of God. Not content with his exalted created position, Lucifer desired the uncreated territory of the divine.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="ti-ref">"I will raise my throne above the stars of God"</p>
+        <p class="ti-text">A claim to supremacy over all other created beings — to rule where God rules, to be above every angel, every order of heaven. His throne, not God's, at the center of all things.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="ti-ref">"I will sit on the mount of assembly"</p>
+        <p class="ti-text">A claim to the seat of divine governance — the place from which God presides over the universe. To sit there is to claim the authority to govern, to decree, to be obeyed as God is obeyed.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="ti-ref">"I will ascend above the heights of the clouds"</p>
+        <p class="ti-text">In Scripture, clouds surround the presence of God (<a href="https://www.biblegateway.com/passage/?search=Exodus+40:34–35&version=NKJV" target="_blank" class="verse-link">Exodus 40:34–35</a>; <a href="https://www.biblegateway.com/passage/?search=Revelation+1:7&version=NKJV" target="_blank" class="verse-link">Revelation 1:7</a>). To ascend above them is to claim a position above the visible glory of God — to be greater than the divine manifestation itself.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="ti-ref">"I will make myself like the Most High"</p>
+        <p class="ti-text">The culmination. Not merely to have power, but to <em>be</em> God — to receive the honor, the reverence, and above all the <strong>worship</strong> that belongs to God alone. This is the desire that drove every "I will" before it. The destination of all five was a throne of worship.</p>
+      </div>
+    </div>
+
+    <div class="scripture">
+      <p class="scripture-label"><a href="https://www.biblegateway.com/passage/?search=Ezekiel+28:12–17&version=NKJV" target="_blank" class="verse-link">Ezekiel 28:12–17</a>— The Anointed Cherub</p>
+      <p>"You were the anointed cherub who covers, and I placed you there. You were on the holy mountain of God… You were blameless in your ways from the day you were created until unrighteousness was found in you… Your heart was lifted up because of your beauty; you corrupted your wisdom by reason of your splendor."</p>
+      <cite><a href="https://www.biblegateway.com/passage/?search=Ezekiel+28:14–17&version=NKJV" target="_blank" class="verse-link">Ezekiel 28:14–17 (NKJV)</a></cite>
+    </div>
+
+    <div class="language-block">
+      <p class="lang-label">Hebrew — <a href="https://www.biblegateway.com/passage/?search=Ezekiel+28:14&version=NKJV" target="_blank" class="verse-link">Ezekiel 28:14</a></p>
+      <div class="lang-entry">
+        <span class="lang-term">כְּרוּב מִמְשַׁח הַסּוֹכֵךְ (kĕrûb mimšaḥ hassôkēk)</span>
+        <span class="lang-transliteration">"the anointed cherub who covers / who overshadows"</span>
+        <span class="lang-definition">The cherubim in Scripture overshadow the mercy seat — the very place of God's presence (<a href="https://www.biblegateway.com/passage/?search=Exodus+25:20&version=NKJV" target="_blank" class="verse-link">Exodus 25:20</a>). To be the <em>anointed covering cherub</em> was the highest possible position a created being could occupy: closest to the throne of the Most High, entrusted with guarding the very dwelling place of God's glory. No created being was more honored. And no created being fell further.</span>
+      </div>
+      <div class="lang-entry">
+        <span class="lang-term">יָרַם לִבְּךָ (yāram libbĕkā)</span>
+        <span class="lang-transliteration">"your heart was lifted up"</span>
+        <span class="lang-definition">The verb <em>rûm</em> means to rise, to be exalted — but here it describes pride, the internal elevation of self above one's proper station. The iniquity that corrupted the most glorious created being was not external temptation. It was internal pride. He looked at his own beauty and chose himself over God. The creature desired what the Creator alone possesses: supreme honor and worship.</span>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <p class="card-label">What Lucifer Actually Wanted</p>
+      <p>Lucifer was the highest of all created beings — nearest to God in position, unmatched in wisdom and beauty. He stood in the presence of the divine glory, covered the mercy seat, and was entrusted with reflecting God's character to the universe. Yet that proximity to the worship offered to God became the seed of his destruction. He began to <strong>covet the honor that was given to the Son of God</strong> — to desire for himself the reverence, the love, and the worship that flowed from all creation toward the Creator.</p>
+      <p>Gradually, rather than transparently, he began to suggest to the angels around him that he deserved a greater share of glory — that God's governance was not entirely just, that his own wisdom qualified him for honor equal to God's. The rebellion was not announced; it was seeded. It began not with open war but with a quiet, persistent redirection of allegiance — away from God, toward himself. The issue at the root of Lucifer's fall was not ambition in a general sense. It was specifically the desire to be <strong>worshiped</strong>.</p>
+    </div>
+
+    <div class="scripture">
+      <p class="scripture-label"><a href="https://www.biblegateway.com/passage/?search=Revelation+12:7–9&version=NKJV" target="_blank" class="verse-link">Revelation 12:7–9</a>— War in Heaven</p>
+      <p>"And there was war in heaven, Michael and his angels waging war with <span class="dragon-red">the dragon</span>. <span class="dragon-red">The dragon</span> and his angels waged war, and they were not strong enough, and there was no longer a place found for them in heaven. And the <span class="dragon-red">great dragon</span> was thrown down, the serpent of old who is called the devil and Satan, who deceives the whole world — he was thrown down to the earth, and his angels were thrown down with him."</p>
+      <cite><a href="https://www.biblegateway.com/passage/?search=Revelation+12:7–9&version=NKJV" target="_blank" class="verse-link">Revelation 12:7–9 (NKJV)</a></cite>
+    </div>
+
+    <div class="insight-card">
+      <p class="card-label">Cast Down — But the Desire Remained</p>
+      <p>Lucifer lost the war in heaven, but he did not abandon his ambition. Cast to this earth, stripped of his former glory, he carried with him the same consuming desire: to be worshiped in place of God. The theater changed — from heaven to earth — but the conflict remained identical. Every temptation he has presented to humanity since Eden has been, at its deepest level, an attempt to redirect worship away from the Creator and toward himself or his representatives.</p>
+      <p>This is not a theological abstraction. It became literal and explicit when he came face to face with Jesus in the wilderness.</p>
+    </div>
+
+    <div class="scripture">
+      <p class="scripture-label"><a href="https://www.biblegateway.com/passage/?search=Matthew+4:8–10&version=NKJV" target="_blank" class="verse-link">Matthew 4:8–10</a>— The Explicit Demand for Worship</p>
+      <p>"Again, the devil took Him to a very high mountain and showed Him all the kingdoms of the world and their glory; and he said to Him, <strong>'All these things I will give You, if You fall down and worship me.'</strong> Then Jesus said to him, 'Go, Satan! For it is written, "You shall worship the Lord your God, and serve Him only."'"</p>
+      <cite><a href="https://www.biblegateway.com/passage/?search=Matthew+4:8–10&version=NKJV" target="_blank" class="verse-link">Matthew 4:8–10 (NKJV)</a></cite>
+    </div>
+
+    <div class="language-block">
+      <p class="lang-label">Greek — <a href="https://www.biblegateway.com/passage/?search=Matthew+4:9&version=NKJV" target="_blank" class="verse-link">Matthew 4:9</a></p>
+      <div class="lang-entry">
+        <span class="lang-term">ἐὰν πεσὼν προσκυνήσῃς μοι (ean pesōn proskynēsēs moi)</span>
+        <span class="lang-transliteration">"if you fall down and worship me"</span>
+        <span class="lang-definition">The word is <em>proskyneō</em> — the same word used throughout the New Testament for the worship of God (<a href="https://www.biblegateway.com/passage/?search=Matthew+4:10&version=NKJV" target="_blank" class="verse-link">Matthew 4:10</a>; <a href="https://www.biblegateway.com/passage/?search=John+4:24&version=NKJV" target="_blank" class="verse-link">John 4:24</a>) and the same word <a href="https://www.biblegateway.com/passage/?search=Revelation+13:4&version=NKJV" target="_blank" class="verse-link">Revelation 13:4</a> uses when the whole world worships the beast. Satan's demand of Jesus in the wilderness is lexically identical to the beast's demand of the world in Revelation 13. The vocabulary is not coincidental — it is the same desire, stated openly to the Son of God, then enacted globally through the beast system at the end of history.</span>
+      </div>
+      <div class="lang-entry">
+        <span class="lang-term">Κύριον τὸν θεόν σου προσκυνήσεις (Kyrion ton theon sou proskynēseis)</span>
+        <span class="lang-transliteration">Deuteronomy 6:13 — "You shall worship the Lord your God"</span>
+        <span class="lang-definition">Jesus' answer is a direct quotation from <a href="https://www.biblegateway.com/passage/?search=Deuteronomy+6:13&version=NKJV" target="_blank" class="verse-link">Deuteronomy 6:13</a> — the same passage in which God commanded Israel to bind His law on their hands and foreheads (<a href="https://www.biblegateway.com/passage/?search=Deuteronomy+6:8&version=NKJV" target="_blank" class="verse-link">Deuteronomy 6:8</a>). The response to Satan's worship demand is the covenant: <strong>worship belongs to God alone</strong>, and that allegiance is expressed through the keeping of His commandments. The Sabbath — the sign of that covenant — is embedded in the very chapter from which Jesus draws His answer.</span>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <p class="card-label">The Oldest Conflict — Now at Its Final Stage</p>
+      <p>What Satan demanded of Jesus in the desert — <em>fall down and worship me</em> — is precisely what the beast demands of the world in Revelation 13. The language is <strong>identical</strong>. The desire is <strong>identical</strong>. The spirit behind both is <strong>identical</strong>.</p>
+      <p>The conflict over the mark of the beast is not, at its core, a conflict about days or economics or political systems. It is the final and global expression of the same question that has governed the entire arc of cosmic history since Lucifer first chose himself over God: <strong>who is worthy of worship?</strong> Lucifer said <em>I am</em>. The beast says <em>we are</em>. God has always said — and Scripture has always answered — that worship belongs to the Creator alone, expressed through covenant loyalty to His revealed law.</p>
+      <p>Revelation 13's demand for worship is not a new chapter. It is the last chapter of the oldest story.</p>
+    </div>
+
+    <div class="scripture">
+      <p class="scripture-label"><a href="https://www.biblegateway.com/passage/?search=Revelation+13:4,+8&version=NKJV" target="_blank" class="verse-link">Revelation 13:4, 8</a>— The Root Issue</p>
+      <p>"And they worshiped <span class="dragon-red">the dragon</span> because he gave his authority to the beast; and they worshiped the beast… All who dwell on the earth will worship him…"</p>
+      <cite><a href="https://www.biblegateway.com/passage/?search=Revelation+13:4,+8&version=NKJV" target="_blank" class="verse-link">Revelation 13:4, 8 (NKJV)</a></cite>
+    </div>
+
+    <div class="language-block">
+      <p class="lang-label">Greek — <a href="https://www.biblegateway.com/passage/?search=Revelation+13:4&version=NKJV" target="_blank" class="verse-link">Revelation 13:4</a></p>
+      <div class="lang-entry">
+        <span class="lang-term">προσκυνέω (proskyneō)</span>
+        <span class="lang-transliteration">pros-koo-neh'-o — to worship, to prostrate oneself before</span>
+        <span class="lang-definition">Literally, to <em>kiss the hand toward</em> someone in total reverence and submission. This is the identical word used throughout the New Testament for the worship of God and of Christ (<a href="https://www.biblegateway.com/passage/?search=Matthew+4:10&version=NKJV" target="_blank" class="verse-link">Matthew 4:10</a>; <a href="https://www.biblegateway.com/passage/?search=John+4:24&version=NKJV" target="_blank" class="verse-link">John 4:24</a>; <a href="https://www.biblegateway.com/passage/?search=Revelation+4:10&version=NKJV" target="_blank" class="verse-link">Revelation 4:10</a>). Its deliberate use here places the worship of the beast in <strong>direct parallel</strong> with the worship of God — establishing this as a binary, exclusive choice between two ultimate authorities, not a matter of degrees.</span>
+      </div>
+    </div>
+
+    <p>The buying and selling restriction of <a href="https://www.biblegateway.com/passage/?search=Revelation+13:17&version=NKJV" target="_blank" class="verse-link">Revelation 13:17</a> is not the <em>substance</em> of the mark — it is the <strong>enforcement mechanism</strong>. The mark is the visible expression of a prior spiritual decision: <em>whose authority do you acknowledge as ultimate?</em> Economic coercion is the instrument; the spiritual allegiance being demanded is the substance.</p>
+
+    <div class="scripture">
+      <p class="scripture-label">The Counter-Sign — <a href="https://www.biblegateway.com/passage/?search=Revelation+14:1&version=NKJV" target="_blank" class="verse-link">Revelation 14:1</a></p>
+      <p>"Then I looked, and behold, the Lamb was standing on Mount Zion, and with Him one hundred and forty-four thousand, having <strong>His name and the name of His Father written on their foreheads</strong>."</p>
+      <cite><a href="https://www.biblegateway.com/passage/?search=Revelation+14:1&version=NKJV" target="_blank" class="verse-link">Revelation 14:1 (NKJV)</a></cite>
+    </div>
+
+    <p>Revelation 14:1 stands as the direct counterpart to Revelation 13 — the seal of God answered against the mark of the beast. Two groups. Two foreheads. One final allegiance. But before that final moment arrives, the infrastructure of enforcement is already visible in the present — in the form of Sunday Blue Laws still active across the United States.</p>
+
+    <!-- BLUE LAWS ACCORDION -->
+    <div class="blue-laws-toggle" onclick="toggleBlueLaws()" id="blToggle">
+      <div class="bl-toggle-inner">
+        <div class="bl-toggle-icon" id="blIcon">▶</div>
+        <div class="bl-toggle-text">
+          <span class="bl-toggle-title">🇺🇸 Sunday Blue Laws — Still Active Across America</span>
+          <span class="bl-toggle-sub">An interactive map of current state restrictions, ranked by severity — tap to expand</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="blue-laws-panel" id="blPanel" style="display:none;">
+      <div class="bl-intro">
+        <p><strong>Sunday Blue Laws</strong> are state or local statutes that restrict certain activities and commercial transactions on Sundays.<a href="https://www.law.cornell.edu/wex/blue_law" target="_blank" class="bl-source">Cornell Law LII</a> Historically they were tied directly to the observance of the Christian Sunday Sabbath,<a href="https://www.history.com/articles/blue-laws-sunday" target="_blank" class="bl-source">History.com</a> but in modern U.S. law they are typically framed in secular terms — described as <em>"uniform day of rest"</em> regulations or specific controls on commercial activity.<a href="https://en.wikipedia.org/wiki/Blue_law" target="_blank" class="bl-source">Wikipedia</a> Common examples include restrictions on alcohol sales, automobile sales, and in a few jurisdictions, broader retail closures.<a href="https://firstamendment.mtsu.edu/article/sunday-blue-laws/" target="_blank" class="bl-source">First Amendment Encyclopedia</a></p>
+        <p>The defining legal precedent is <strong>McGowan v. Maryland (1961)</strong>,<a href="https://supreme.justia.com/cases/federal/us/366/420/" target="_blank" class="bl-source">Full Opinion — Justia</a> in which the U.S. Supreme Court upheld Sunday closing laws against an Establishment Clause challenge.<a href="https://firstamendment.mtsu.edu/article/mcgowan-v-maryland/" target="_blank" class="bl-source">First Amendment Encyclopedia</a> The Court reasoned that even though these statutes had unmistakable religious origins, their current purpose and effect could be construed as secular — primarily providing a common day of rest for working citizens.<a href="https://berkleycenter.georgetown.edu/cases/mcgowan-v-maryland" target="_blank" class="bl-source">Georgetown Berkley Center</a> That ruling is the reason Sunday Blue Laws have not been automatically invalidated as unconstitutional. The religious root was acknowledged; the secular veneer was sufficient to sustain the laws.<a href="https://scholarship.law.vanderbilt.edu/vlr/vol60/iss4/5/" target="_blank" class="bl-source">Vanderbilt Law Review</a></p>
+        <p>Their continued presence in American civil law is a living echo of <a href="https://www.biblegateway.com/passage/?search=Daniel+7:25&version=NKJV" target="_blank" class="verse-link">Daniel 7:25</a>'s "changing of times and law" — institutional Sunday observance encoded in legislation and upheld by the nation's highest court. Their roots stretch back to Constantine's 321 CE edict designating <em>dies Solis</em> ("the venerable day of the Sun") as the Roman day of rest<a href="https://en.wikipedia.org/wiki/Blue_law#History" target="_blank" class="bl-source">Wikipedia — Blue Laws History</a><a href="https://en.wikipedia.org/wiki/Sol_Invictus" target="_blank" class="bl-source">Wikipedia — Sol Invictus</a> — the first civil law in recorded history mandating a Sunday day of rest, and the direct ancestor of every Blue Law that followed.</p>
+      </div>
+
+      <div class="bl-legend">
+        <span class="bl-dot red"></span><span>Most Restrictive</span>
+        <span class="bl-dot orange"></span><span>High</span>
+        <span class="bl-dot yellow"></span><span>Moderate</span>
+        <span class="bl-dot green"></span><span>Limited</span>
+      </div>
+
+      <!-- TIER 1 -->
+      <div class="bl-tier">
+        <div class="bl-tier-header red-tier">
+          <span class="bl-tier-badge">TIER 1</span>
+          <span class="bl-tier-title">Most Restrictive</span>
+          <span class="bl-tier-desc">Sweeping retail prohibitions &amp; alcohol limitations</span>
+        </div>
+        <div class="bl-state">
+          <div class="bl-state-name">🔴 New Jersey <span class="bl-note">(Bergen County)</span></div>
+          <div class="bl-state-tag">Most comprehensive Sunday ordinance remaining in the U.S.</div>
+          <div class="bl-rows">
+            <div class="bl-row"><span class="bl-icon no">✕</span><span class="bl-cat">Retail</span><span class="bl-detail">Prohibits the sale of clothing, furniture, appliances, and numerous other categories</span></div>
+            <div class="bl-row"><span class="bl-icon warn">⚠</span><span class="bl-cat">Alcohol</span><span class="bl-detail">Restricted hours, varying by municipality</span></div>
+            <div class="bl-row"><span class="bl-icon no">✕</span><span class="bl-cat">Vehicle Sales</span><span class="bl-detail">Prohibited</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIER 2 -->
+      <div class="bl-tier">
+        <div class="bl-tier-header orange-tier">
+          <span class="bl-tier-badge">TIER 2</span>
+          <span class="bl-tier-title">High Restrictions</span>
+          <span class="bl-tier-desc">Major commercial limitations — vehicle sales bans or stringent alcohol controls</span>
+        </div>
+        <div class="bl-state">
+          <div class="bl-state-name">🟠 Iowa</div>
+          <div class="bl-rows">
+            <div class="bl-row"><span class="bl-icon no">✕</span><span class="bl-cat">Vehicle Sales</span><span class="bl-detail">Prohibited statewide on Sundays</span></div>
+            <div class="bl-row"><span class="bl-icon ok">✓</span><span class="bl-cat">Alcohol</span><span class="bl-detail">Permitted</span></div>
+            <div class="bl-row"><span class="bl-icon ok">✓</span><span class="bl-cat">Retail</span><span class="bl-detail">No general ban</span></div>
+          </div>
+        </div>
+        <div class="bl-state">
+          <div class="bl-state-name">🟠 North Dakota</div>
+          <div class="bl-rows">
+            <div class="bl-row"><span class="bl-icon no">✕</span><span class="bl-cat">Vehicle Sales</span><span class="bl-detail">Prohibited</span></div>
+            <div class="bl-row"><span class="bl-icon warn">⚠</span><span class="bl-cat">Alcohol</span><span class="bl-detail">Restricted morning hours</span></div>
+            <div class="bl-row"><span class="bl-icon ok">✓</span><span class="bl-cat">Retail</span><span class="bl-detail">No general ban</span></div>
+          </div>
+        </div>
+        <div class="bl-state">
+          <div class="bl-state-name">🟠 Texas</div>
+          <div class="bl-rows">
+            <div class="bl-row"><span class="bl-icon warn">⚠</span><span class="bl-cat">Vehicle Sales</span><span class="bl-detail">Dealerships must close one weekend day — typically Sunday</span></div>
+            <div class="bl-row"><span class="bl-icon no">✕</span><span class="bl-cat">Alcohol (Liquor)</span><span class="bl-detail">No Sunday liquor sales; beer and wine permitted with restricted hours</span></div>
+            <div class="bl-row"><span class="bl-icon ok">✓</span><span class="bl-cat">Retail</span><span class="bl-detail">No general ban</span></div>
+          </div>
+        </div>
+        <div class="bl-state">
+          <div class="bl-state-name">🟠 Arkansas</div>
+          <div class="bl-rows">
+            <div class="bl-row"><span class="bl-icon no">✕</span><span class="bl-cat">Alcohol</span><span class="bl-detail">Numerous counties prohibit Sunday sales entirely (dry county statutes)</span></div>
+            <div class="bl-row"><span class="bl-icon ok">✓</span><span class="bl-cat">Vehicle Sales</span><span class="bl-detail">No ban</span></div>
+            <div class="bl-row"><span class="bl-icon ok">✓</span><span class="bl-cat">Retail</span><span class="bl-detail">No general ban</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIER 3 -->
+      <div class="bl-tier">
+        <div class="bl-tier-header yellow-tier">
+          <span class="bl-tier-badge">TIER 3</span>
+          <span class="bl-tier-title">Moderate Restrictions</span>
+          <span class="bl-tier-desc">Alcohol regulations — statewide or through strong local jurisdiction</span>
+        </div>
+        <div class="bl-states-grid">
+          <div class="bl-state-mini"><span class="bl-dot yellow"></span><strong>Oklahoma</strong><br/>Sunday liquor sales contingent on county approval</div>
+          <div class="bl-state-mini"><span class="bl-dot yellow"></span><strong>Utah</strong><br/>State-controlled outlets; limited Sunday hours</div>
+          <div class="bl-state-mini"><span class="bl-dot yellow"></span><strong>Alabama</strong><br/>Many counties restrict or prohibit Sunday alcohol sales</div>
+          <div class="bl-state-mini"><span class="bl-dot yellow"></span><strong>Mississippi</strong><br/>Robust local restrictions on Sunday sales</div>
+          <div class="bl-state-mini"><span class="bl-dot yellow"></span><strong>Louisiana</strong><br/>Parish-level jurisdiction governs Sunday commerce</div>
+          <div class="bl-state-mini"><span class="bl-dot yellow"></span><strong>Tennessee</strong><br/>Restricted Sunday alcohol hours</div>
+          <div class="bl-state-mini"><span class="bl-dot yellow"></span><strong>Kentucky</strong><br/>Local-option statutes determine Sunday access</div>
+          <div class="bl-state-mini"><span class="bl-dot yellow"></span><strong>Georgia</strong><br/>Requires local voter approval; widely permitted</div>
+          <div class="bl-state-mini"><span class="bl-dot yellow"></span><strong>Florida</strong><br/>County-level restrictions on Sunday sales</div>
+        </div>
+      </div>
+
+      <!-- TIER 4 -->
+      <div class="bl-tier">
+        <div class="bl-tier-header green-tier">
+          <span class="bl-tier-badge">TIER 4</span>
+          <span class="bl-tier-title">Limited Restrictions</span>
+          <span class="bl-tier-desc">Minor time-based alcohol controls — the lowest tier of active Sunday legislation</span>
+        </div>
+        <div class="bl-states-grid">
+          <div class="bl-state-mini"><span class="bl-dot green"></span><strong>New York</strong><br/>Delayed morning sale hours</div>
+          <div class="bl-state-mini"><span class="bl-dot green"></span><strong>Pennsylvania</strong><br/>State-regulated; limited Sunday hours</div>
+          <div class="bl-state-mini"><span class="bl-dot green"></span><strong>Massachusetts</strong><br/>Restricted hours</div>
+          <div class="bl-state-mini"><span class="bl-dot green"></span><strong>Connecticut</strong><br/>Restricted hours</div>
+          <div class="bl-state-mini"><span class="bl-dot green"></span><strong>Rhode Island</strong><br/>Restricted hours</div>
+          <div class="bl-state-mini"><span class="bl-dot green"></span><strong>Vermont</strong><br/>Restricted hours</div>
+          <div class="bl-state-mini"><span class="bl-dot green"></span><strong>Maine</strong><br/>Restricted hours</div>
+          <div class="bl-state-mini"><span class="bl-dot green"></span><strong>New Hampshire</strong><br/>Restricted hours</div>
+          <div class="bl-state-mini"><span class="bl-dot green"></span><strong>South Dakota</strong><br/>Local and time-based restrictions</div>
+          <div class="bl-state-mini"><span class="bl-dot green"></span><strong>Nebraska</strong><br/>Restricted hours</div>
+          <div class="bl-state-mini"><span class="bl-dot green"></span><strong>Kansas</strong><br/>Local-option statutes</div>
+          <div class="bl-state-mini"><span class="bl-dot green"></span><strong>Idaho</strong><br/>Time-based restrictions</div>
+          <div class="bl-state-mini"><span class="bl-dot green"></span><strong>Montana</strong><br/>Time-based restrictions</div>
+          <div class="bl-state-mini"><span class="bl-dot green"></span><strong>Wyoming</strong><br/>Time-based restrictions</div>
+        </div>
+      </div>
+
+      <div class="bl-footer">
+        <p>These statutes represent the living legacy of centuries of church-state entanglement over Sunday observance. Their continued presence in American civil law is the institutional residue of the historical pattern <a href="https://www.biblegateway.com/passage/?search=Daniel+7:25&version=NKJV" target="_blank" class="verse-link">Daniel 7:25</a> prophesied — the legislative encoding of a day of worship that God never authorized and Scripture never commanded.</p>
+      </div>
+
+      <div class="bl-close-bar" onclick="closeBlueLaws()">
+        <span class="bl-close-icon">▲</span>
+        <span class="bl-close-text">Collapse This Section</span>
+        <span class="bl-close-icon">▲</span>
+      </div>
+    </div>
+
+    <script>
+      function toggleBlueLaws() {
+        const panel = document.getElementById('blPanel');
+        const icon = document.getElementById('blIcon');
+        const toggle = document.getElementById('blToggle');
+        if (panel.style.display === 'none') {
+          panel.style.display = 'block';
+          icon.textContent = '▼';
+          icon.style.background = 'rgba(106,176,216,0.2)';
+          icon.style.borderColor = '#6ab0d8';
+          toggle.classList.add('active');
+        } else {
+          panel.style.display = 'none';
+          icon.textContent = '▶';
+          icon.style.background = 'rgba(74,138,176,0.15)';
+          icon.style.borderColor = '#4a8ab0';
+          toggle.classList.remove('active');
+        }
+      }
+      function closeBlueLaws() {
+        const panel = document.getElementById('blPanel');
+        const icon = document.getElementById('blIcon');
+        const toggle = document.getElementById('blToggle');
+        panel.style.display = 'none';
+        icon.textContent = '▶';
+        icon.style.background = 'rgba(74,138,176,0.15)';
+        icon.style.borderColor = '#4a8ab0';
+        toggle.classList.remove('active');
+        toggle.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    </script>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><span class="divider-icon">✦</span><div class="divider-line"></div></div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION II — THE MARK AS TRADEMARK
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">II</span><div class="section-rule"></div></div>
+    <h3>The Mark as a Trademark: A Brand of Ownership</h3>
+    <p class="section-subtitle">The beast's mark is not merely a label — it is the trademark of a counterfeit religion whose power lies in how genuine it appears</p>
+
+    <p class="intro-block">In Part 1, the Greek word <em>charagma</em> (χάραγμα) was established as the word for "mark" — an official stamp or brand of ownership pressed into a surface, used in the Roman world for the imperial seal on commercial documents. Understood in its full biblical context, the mark of the beast functions precisely as a <strong>trademark</strong>: the brand identifier of a specific system, pressed upon those who belong to it, advertising whose authority they operate under.</p>
+
+    <div class="language-block">
+      <p class="lang-label">Greek — <a href="https://www.biblegateway.com/passage/?search=Revelation+13:17&version=NKJV" target="_blank" class="verse-link">Revelation 13:17</a></p>
+      <div class="lang-entry">
+        <span class="lang-term">χάραγμα (charagma)</span>
+        <span class="lang-transliteration">khar'-ag-mah — mark, stamp, brand, engraved impression</span>
+        <span class="lang-definition">From <em>charasso</em> — to engrave or cut into a surface. In the ancient commercial world, a <em>charagma</em> was the authenticating mark of an owner pressed into documents, coins, and goods to identify their source and guarantee their validity within a particular system. A trademark, in the most literal sense: <strong>the identifying mark of whose trade you are part of</strong>.</span>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <p class="card-label">The Power of a Counterfeit Is That It Appears Genuine</p>
+      <p>A counterfeit does not succeed by looking false. It succeeds by looking <em>real</em> — by being indistinguishable from the authentic, even under scrutiny. A counterfeit bill that looks obviously fake deceives no one. A counterfeit bill that passes through a bank deceives everyone. The more carefully a false thing mirrors the genuine, the more powerful its deception.</p>
+      <p>This is precisely what Revelation describes. The beast does not present itself as an enemy of God. It presents itself as <strong>the representative of God</strong> — using the language of Scripture, the structure of worship, the calendar of sacred time, and the authority of divine law, while having quietly replaced the genuine article with its own version. It is not a rebellion that looks like rebellion. It is a rebellion that <em>looks like righteousness</em>. That is what makes it the most dangerous deception in prophetic history.</p>
+    </div>
+
+    <div class="insight-card">
+      <p class="card-label">Two Beasts — Two Distinct Roles</p>
+      <p>Revelation 13 presents two separate beasts with two entirely different roles. The <strong>first beast from the sea</strong> (<a href="https://www.biblegateway.com/passage/?search=Revelation+13:1–10&version=NKJV" target="_blank" class="verse-link">Rev. 13:1–10</a>) is the <strong>counterfeit religion</strong> — the papal system that positioned itself as God's representative on earth, altered His law, and created the mark. The <strong>second beast from the earth</strong> (<a href="https://www.biblegateway.com/passage/?search=Revelation+13:11&version=NKJV" target="_blank" class="verse-link">Rev. 13:11</a>) is not the counterfeit religion — it is the <strong>enforcement power</strong> that causes the world to receive the mark the first beast created.</p>
+      <p>The mark of the beast originates with the sea beast — the counterfeit religion. The earth beast's role is to enforce it: compelling worship of the first beast through signs, legal pressure, and economic coercion. Understanding this distinction is essential to reading Revelation 13 accurately.</p>
+    </div>
+
+    <div class="scripture">
+      <p class="scripture-label"><a href="https://www.biblegateway.com/passage/?search=Revelation+13:11&version=NKJV" target="_blank" class="verse-link">Revelation 13:11</a>— The Lamb with Two Horns</p>
+      <p>"Then I saw another beast coming up out of the earth; and he had <strong>two horns like a lamb</strong> and he spoke <span class="dragon-red">as a dragon</span>."</p>
+      <cite><a href="https://www.biblegateway.com/passage/?search=Revelation+13:11&version=NKJV" target="_blank" class="verse-link">Revelation 13:11 (NKJV)</a></cite>
+    </div>
+
+    <div class="insight-card">
+      <p class="card-label">The Earth Beast — A Christian-Appearing Nation</p>
+      <p>The beast of <a href="https://www.biblegateway.com/passage/?search=Revelation+13:11&version=NKJV" target="_blank" class="verse-link">Revelation 13:11</a> is described as having two horns like a lamb — lamb imagery throughout Revelation belongs to Christ alone (<a href="https://www.biblegateway.com/passage/?search=Revelation+5:6&version=NKJV" target="_blank" class="verse-link">Revelation 5:6</a>; 7:17; 14:1). This power <em>appears</em> Christ-like. Its founding principles are peaceful and liberty-affirming. But it <em>speaks <span class="dragon-red">as a dragon</span></em> — meaning that despite its origins, it ultimately exercises the same coercive, oppressive authority as the powers that preceded it. It does not create the mark. It enforces it — on behalf of the first beast.</p>
+    </div>
+
+    <div class="scripture">
+      <p class="scripture-label"><a href="https://www.biblegateway.com/passage/?search=Revelation+13:11&version=NKJV" target="_blank" class="verse-link">Revelation 13:11</a>— The Lamb with Two Horns</p>
+      <p>"Then I saw another beast coming up out of the earth; and he had <strong>two horns like a lamb</strong> and he spoke <span class="dragon-red">as a dragon</span>."</p>
+      <cite><a href="https://www.biblegateway.com/passage/?search=Revelation+13:11&version=NKJV" target="_blank" class="verse-link">Revelation 13:11 (NKJV)</a></cite>
+    </div>
+
+    <p style="font-family:'Cinzel',serif; font-size:10px; letter-spacing:0.3em; color:var(--gold-dim); text-transform:uppercase; margin: 28px 0 14px;">Symbol Breakdown — <a href="https://www.biblegateway.com/passage/?search=Revelation+13:11&version=NKJV" target="_blank" class="verse-link">Revelation 13:11</a></p>
+
+    <table class="trinity-table">
+      <thead>
+        <tr>
+          <th>Symbol Element</th>
+          <th>Biblical Meaning</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>"Beast"</td>
+          <td>A kingdom or nation (<a href="https://www.biblegateway.com/passage/?search=Daniel+7:17&version=NKJV" target="_blank" class="verse-link">Daniel 7:17</a>) — not an individual person but an institutional power</td>
+        </tr>
+        <tr>
+          <td>"Coming up out of the earth"</td>
+          <td>Arises in a sparsely populated territory, distinct from the sea-beast which rose from the teeming nations of the Old World (<a href="https://www.biblegateway.com/passage/?search=Revelation+17:15&version=NKJV" target="_blank" class="verse-link">Revelation 17:15</a>)</td>
+        </tr>
+        <tr>
+          <td>"Lamb-like horns"</td>
+          <td>Youthful, peaceful, Christ-like beginnings — a power whose founding principles appear gentle and righteous</td>
+        </tr>
+        <tr>
+          <td>"Two horns"</td>
+          <td>Civil liberty and religious liberty — a dual-foundation of freedom that distinguishes this power's origins</td>
+        </tr>
+        <tr>
+          <td>"No crowns on the horns"</td>
+          <td>Non-monarchical government — republican or democratic rather than imperial in structure</td>
+        </tr>
+        <tr>
+          <td>"Speaks like a <span class="dragon-red">dragon</span>"</td>
+          <td>Eventually exercises coercive, oppressive authority — the lamb-like beginning gives way to <span class="dragon-red">dragon</span>-like enforcement</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-family:'Cinzel',serif; font-size:10px; letter-spacing:0.3em; color:var(--gold-dim); text-transform:uppercase; margin: 28px 0 14px;">Functional Role in Prophecy — <a href="https://www.biblegateway.com/passage/?search=Revelation+13:12–17&version=NKJV" target="_blank" class="verse-link">Revelation 13:12–17</a></p>
+
+    <table class="trinity-table">
+      <thead>
+        <tr>
+          <th>Action</th>
+          <th>Text</th>
+          <th>Prophetic Significance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Exercises all the authority of the first beast</td>
+          <td>Rev. 13:12</td>
+          <td>Aligns with and reinforces the papal power — lending its civil authority to a religious cause</td>
+        </tr>
+        <tr>
+          <td>Causes the earth to worship the first beast</td>
+          <td>Rev. 13:12</td>
+          <td>Enforces religious observance on a global scale — worship becomes legally compelled, not freely chosen</td>
+        </tr>
+        <tr>
+          <td>Performs great signs and miracles</td>
+          <td>Rev. 13:13</td>
+          <td>Deceptive signs authenticate its authority — including bringing fire from heaven, echoing Elijah (1 Kings 18)</td>
+        </tr>
+        <tr>
+          <td>Makes an image to the first beast</td>
+          <td>Rev. 13:14</td>
+          <td>Creates a church-state union that mirrors the structure of the sea beast — religion enforced through civil law</td>
+        </tr>
+        <tr>
+          <td>Enforces the mark of the beast</td>
+          <td>Rev. 13:16–17</td>
+          <td>Implements legal and economic enforcement — no buying or selling without compliance, making allegiance a survival issue</td>
+        </tr>
+        <tr>
+          <td>Identified as the False Prophet</td>
+          <td>Rev. 16:13</td>
+          <td>By Revelation 16, this same power is called the false prophet — it authenticates the sea beast's authority through signs, as a prophet validates the one they represent</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-family:'Cinzel',serif; font-size:10px; letter-spacing:0.3em; color:var(--gold-dim); text-transform:uppercase; margin: 28px 0 14px;">Summary — The Earth Beast in Prophecy</p>
+
+    <table class="trinity-table">
+      <thead>
+        <tr>
+          <th>Aspect</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Identity</td>
+          <td>A powerful Christian-appearing nation, arising in a new-world territory after the sea beast's 1,260-year dominion — not the counterfeit religion, but the enforcement arm of the false trinity</td>
+        </tr>
+        <tr>
+          <td>Early Character</td>
+          <td>Founded on freedom — civil and religious liberty as its defining principles, lamb-like in its beginnings</td>
+        </tr>
+        <tr>
+          <td>Later Role</td>
+          <td>Enforces the mark created by the first beast (sea beast / Papacy) — compelling the world to worship that system through signs, civil law, and economic pressure</td>
+        </tr>
+        <tr>
+          <td>Prophetic Function</td>
+          <td>Acts as the false prophet (<a href="https://www.biblegateway.com/passage/?search=Revelation+16:13&version=NKJV" target="_blank" class="verse-link">Rev. 16:13</a>) — the enforcer of the false trinity's worship system, completing the counterfeit of the Holy Spirit's role. The mark originates with the sea beast; this power makes the world receive it</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="scripture">
+      <p class="scripture-label"><a href="https://www.biblegateway.com/passage/?search=2+Thessalonians+2:3–4&version=NKJV" target="_blank" class="verse-link">2 Thessalonians 2:3–4</a>— Acting in God's Place</p>
+      <p>"…the man of lawlessness is revealed, the son of destruction, <strong>who opposes and exalts himself above every so-called god or object of worship, so that he takes his seat in the temple of God, displaying himself as being God</strong>."</p>
+      <cite><a href="https://www.biblegateway.com/passage/?search=2+Thessalonians+2:3–4&version=NKJV" target="_blank" class="verse-link">2 Thessalonians 2:3–4 (NKJV)</a></cite>
+    </div>
+
+    <div class="insight-card">
+      <p class="card-label">The Sea Beast — The Counterfeit Religion Positioned Within</p>
+      <p>Paul's description in <a href="https://www.biblegateway.com/passage/?search=2+Thessalonians+2:3–4&version=NKJV" target="_blank" class="verse-link">2 Thessalonians 2:3–4</a> is precise: this power does not attack Christianity from outside. It takes its seat <em>within</em> the temple — within the structure of Christianity itself — and claims to <em>be</em> God's representative on earth. This is the sea beast, the first beast of Revelation 13 — the <strong>counterfeit religion</strong> that created the mark. The world is not deceived by something that looks evil. It is deceived by something that looks holy.</p>
+      <p>The specific trademark of this authority — the mark that declares whose system you belong to — is its <strong>claimed power to define sacred time</strong>. The sea beast does not merely suggest which day to worship on. It asserts that its institutional authority supersedes the written commandment of God, and that compliance with its decree is equivalent to obedience to God. The mark of the beast is the institutional sign of a system that has convinced the world it speaks <em>for</em> the Creator — while having overwritten what the Creator wrote. The earth beast then enforces this mark upon the whole world.</p>
+    </div>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><span class="divider-icon">✦</span><div class="divider-line"></div></div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION III — 666 AND THE FALSE TRINITY
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">III</span><div class="section-rule"></div></div>
+    <h3>The Number 666: The Measure of Man and the False Trinity</h3>
+    <p class="section-subtitle">A number simultaneously rooted in creation, human limitation, and a systematic counterfeit of the divine</p>
+
+    <div class="scripture">
+      <p class="scripture-label"><a href="https://www.biblegateway.com/passage/?search=Revelation+13:18&version=NKJV" target="_blank" class="verse-link">Revelation 13:18</a></p>
+      <p>"Here is wisdom. Let him who has understanding calculate the number of the beast, for the number is <strong>that of a man</strong>; and his number is <strong>six hundred and sixty-six</strong>."</p>
+      <cite><a href="https://www.biblegateway.com/passage/?search=Revelation+13:18&version=NKJV" target="_blank" class="verse-link">Revelation 13:18 (NKJV)</a></cite>
+    </div>
+
+    <div class="language-block">
+      <p class="lang-label">Greek Lexical Analysis</p>
+      <div class="lang-entry">
+        <span class="lang-term">ἀριθμὸς ἀνθρώπου (arithmos anthrōpou)</span>
+        <span class="lang-transliteration">"the number of a man / of humanity"</span>
+        <span class="lang-definition"><em>Anthrōpou</em> carries both the specific sense ("a man") and the general sense ("of the human order"). The number belongs to a human institution <em>and</em> encapsulates the full measure of human defiance of God — it is both an identification and a characterization.</span>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <p class="card-label">Six: The Number of Man — Established at Creation</p>
+      <p>The significance of six is established at the very opening of Scripture. God created humanity on the <strong>sixth day</strong> (<a href="https://www.biblegateway.com/passage/?search=Genesis+1:26–31&version=NKJV" target="_blank" class="verse-link">Genesis 1:26–31</a>). Six is therefore the number of man — not incidentally, but by divine design. It marks the day human beings were formed and given dominion over the earth.</p>
+      <p>Yet in the biblical numerical system, <strong>seven</strong> is the number of divine completeness — the day God <em>rested, blessed, and sanctified</em> (<a href="https://www.biblegateway.com/passage/?search=Genesis+2:1–3&version=NKJV" target="_blank" class="verse-link">Genesis 2:1–3</a>). Six falls permanently one step short of seven. It is the human number: active, striving, created — but incomplete without God's consecration. It is the creature number that reaches toward the divine without ever attaining it.</p>
+    </div>
+
+    <p>The false trinity is not simply a collection of evil forces — it is a <strong>deliberately structured counterfeit of the divine Trinity</strong>, with each member assigned a role that mirrors a person of the Godhead. <a href="https://www.biblegateway.com/passage/?search=Revelation+16:13&version=NKJV" target="_blank" class="verse-link">Revelation 16:13</a> provides the clearest confirmation of their unified, coordinated action:</p>
+
+    <div class="scripture">
+      <p class="scripture-label"><a href="https://www.biblegateway.com/passage/?search=Revelation+16:13&version=NKJV" target="_blank" class="verse-link">Revelation 16:13</a>— The Three Act as One</p>
+      <p>"And I saw coming out of the mouth of <span class="dragon-red">the dragon</span> and out of the mouth of the beast and out of the mouth of the false prophet, three unclean spirits like frogs…"</p>
+      <cite><a href="https://www.biblegateway.com/passage/?search=Revelation+16:13&version=NKJV" target="_blank" class="verse-link">Revelation 16:13 (NKJV)</a></cite>
+    </div>
+
+    <div class="insight-card">
+      <p class="card-label">The False Prophet — A Third Identity</p>
+      <p>By <a href="https://www.biblegateway.com/passage/?search=Revelation+16:13&version=NKJV" target="_blank" class="verse-link">Revelation 16:13</a>, the earth beast of <a href="https://www.biblegateway.com/passage/?search=Revelation+13:11–18&version=NKJV" target="_blank" class="verse-link">Revelation 13:11–18</a> is identified by a new title: <strong>the false prophet</strong>. This is significant. A prophet does not merely command — a prophet <em>authenticates</em>. The false prophet performs signs and wonders (<a href="https://www.biblegateway.com/passage/?search=Revelation+13:13–14&version=NKJV" target="_blank" class="verse-link">Revelation 13:13–14</a>) to validate the authority of the sea beast, directing all people toward its worship. This mirrors the role of the Holy Spirit, who glorifies Christ, draws people to Him, and confirms His authority through signs and works (<a href="https://www.biblegateway.com/passage/?search=John+16:14&version=NKJV" target="_blank" class="verse-link">John 16:14</a>; <a href="https://www.biblegateway.com/passage/?search=Acts+2:43&version=NKJV" target="_blank" class="verse-link">Acts 2:43</a>). The false prophet is a counterfeit Holy Spirit — a spiritual enforcer whose signs serve a counterfeit Christ.</p>
+    </div>
+
+    <table class="trinity-table">
+      <thead>
+        <tr>
+          <th>Function</th>
+          <th>True Trinity</th>
+          <th>False Trinity (Revelation)</th>
+          <th>Structural Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Source of Authority</td>
+          <td>God the Father</td>
+          <td><span class="dragon-red">The Dragon</span> (<a href="https://www.biblegateway.com/passage/?search=Revelation+12:9&version=NKJV" target="_blank" class="verse-link">Rev. 12:9</a>; 13:2)</td>
+          <td>Gives power, throne, and authority to the sea beast — as the Father sends and authorizes the Son</td>
+        </tr>
+        <tr>
+          <td>Object of Worship</td>
+          <td>Jesus Christ, the Son</td>
+          <td>The Sea Beast — Papacy (<a href="https://www.biblegateway.com/passage/?search=Revelation+13:1–10&version=NKJV" target="_blank" class="verse-link">Rev. 13:1–10</a>)</td>
+          <td>Receives the worship of all the earth — as Christ is the mediator and object of the redeemed's adoration</td>
+        </tr>
+        <tr>
+          <td>Enforcer of Worship</td>
+          <td>The Holy Spirit</td>
+          <td>The Earth Beast / False Prophet (<a href="https://www.biblegateway.com/passage/?search=Revelation+13:11–18&version=NKJV" target="_blank" class="verse-link">Rev. 13:11–18</a>; 16:13)</td>
+          <td>Performs signs, animates the image, and compels worship of the first beast — as the Spirit draws all people to Christ</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="trinity-grid">
+      <div class="trinity-panel true-t">
+        <p class="tp-label">The True Trinity</p>
+        <span class="tp-num">7 · 7 · 7</span>
+        <p class="tp-members">Father<br/>Son<br/>Holy Spirit<em>Three persons — one perfect, complete, and eternally divine</em></p>
+      </div>
+      <div class="trinity-panel false-t">
+        <p class="tp-label">The False Trinity — 666</p>
+        <span class="tp-num">6 · 6 · 6</span>
+        <p class="tp-members"><span class="dragon-red">The Dragon</span> (<a href="https://www.biblegateway.com/passage/?search=Revelation+12:9&version=NKJV" target="_blank" class="verse-link">Rev. 12:9</a>)<br/>The Sea Beast — Papacy (<a href="https://www.biblegateway.com/passage/?search=Revelation+13:1–10&version=NKJV" target="_blank" class="verse-link">Rev. 13:1–10</a>)<br/>The Earth Beast — a Christian-appearing nation (<a href="https://www.biblegateway.com/passage/?search=Revelation+13:11–18&version=NKJV" target="_blank" class="verse-link">Rev. 13:11–18</a>)<em>Three powers — one counterfeit, human imitation of divinity</em></p>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <p class="card-label">A Systematic, Not Accidental, Counterfeit</p>
+      <p>The false trinity does not emerge from Revelation as three independent hostile powers. It emerges as a <strong>unified system</strong> — carefully structured to mirror the divine order of authority, worship, and enforcement. <span class="dragon-red">The dragon</span> is the source. The sea beast is the object. The earth beast is the enforcer. Together they form a religious-political architecture whose single purpose is to <em>redirect toward themselves the worship that belongs to God alone</em>.</p>
+      <p>666 is the number of this system: three powers, each bearing the human number, each falling short of the divine — yet collectively claiming divine authority, divine worship, and divine prerogative. Three sixes. Three counterfeits. One false trinity.</p>
+    </div>
+
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><span class="divider-icon">✦</span><div class="divider-line"></div></div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION IV — HAND AND FOREHEAD ECHO
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">IV</span><div class="section-rule"></div></div>
+    <h3>The Hand and the Forehead: An Echo Written Across Scripture</h3>
+    <p class="section-subtitle">Revelation 13:16 does not introduce new body symbolism — it deliberately inverts it</p>
+
+    <p class="intro-block">When <a href="https://www.biblegateway.com/passage/?search=Revelation+13:16&version=NKJV" target="_blank" class="verse-link">Revelation 13:16</a> places the beast's mark on the <em>right hand</em> and the <em>forehead</em>, it is not selecting arbitrary body parts. These locations carry a precise, established symbolic meaning running from Exodus through the Psalms to the Prophets. John's readers, steeped in Scripture, would have recognized the echo immediately — and felt its inversion as a profound spiritual provocation.</p>
+
+    <div class="hf-grid">
+      <div class="hf-panel hand">
+        <span class="hf-icon">✋</span>
+        <p class="hf-label">The Hand</p>
+        <p class="hf-meaning">Represents a person's <strong>actions, deeds, and conduct</strong> — what they actively <em>do</em> in the world. The hand is the outward expression of inward conviction. Clean hands = righteous conduct.</p>
+        <p class="hf-refs">Exodus 15:6 · <a href="https://www.biblegateway.com/passage/?search=Psalms+24:3–4&version=NKJV" target="_blank" class="verse-link">Psalm 24:3–4</a> · <a href="https://www.biblegateway.com/passage/?search=Deuteronomy+6:8&version=NKJV" target="_blank" class="verse-link">Deuteronomy 6:8</a></p>
+      </div>
+      <div class="hf-panel fore">
+        <span class="hf-icon">🧠</span>
+        <p class="hf-label">The Forehead</p>
+        <p class="hf-meaning">Represents a person's <strong>innermost thoughts, convictions, and will</strong> — what they truly <em>believe</em> and have chosen at the deepest level. The forehead is the seat of decision and ultimate loyalty.</p>
+        <p class="hf-refs">Deuteronomy 6:8 · <a href="https://www.biblegateway.com/passage/?search=Ezekiel+9:4&version=NKJV" target="_blank" class="verse-link">Ezekiel 9:4</a> · <a href="https://www.biblegateway.com/passage/?search=Psalms+24:3–4&version=NKJV" target="_blank" class="verse-link">Psalm 24:3–4</a></p>
+      </div>
+    </div>
+
+    <table class="echo-table">
+      <thead>
+        <tr><th>Scripture</th><th>The Symbol</th><th>What It Establishes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Exodus 15:6</td>
+          <td class="symbol">"Your right hand, O LORD, is majestic in power; Your right hand, O LORD, shatters the enemy."</td>
+          <td>The right hand is the symbol of <strong>power in action</strong>. To mark the right hand is to claim ownership over a person's deeds and conduct.</td>
+        </tr>
+        <tr>
+          <td>Deuteronomy 6:8</td>
+          <td class="symbol">"Bind them as a sign on your hand… as frontals on your forehead."</td>
+          <td>God commands His law to govern both <strong>hand (action)</strong> and <strong>forehead (mind)</strong>. <a href="https://www.biblegateway.com/passage/?search=Revelation+13:16&version=NKJV" target="_blank" class="verse-link">Revelation 13:16</a> places the counterfeit in precisely these same locations.</td>
+        </tr>
+        <tr>
+          <td>Ezekiel 9:4</td>
+          <td class="symbol">"Put a mark (תָּו, <em>tav</em>) on the foreheads of the men who sigh and groan…"</td>
+          <td>God marks the <strong>forehead</strong> of the faithful — identifying whose inner convictions and allegiance belong to Him.</td>
+        </tr>
+        <tr>
+          <td>Psalm 24:3–4</td>
+          <td class="symbol">"He who has <strong>clean hands and a pure heart</strong>…"</td>
+          <td>God's standard for His people: aligned <strong>actions</strong> (clean hands) <em>and</em> aligned <strong>thoughts</strong> (pure heart). The beast targets the same two dimensions as a counterfeit of this divine wholeness.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="insight-card">
+      <p class="card-label">The Full Meaning of the Mark's Placement</p>
+      <p>To receive the mark on the <strong>forehead</strong> is to surrender one's innermost convictions and will to the beast's authority — accepting its false doctrine as truth at the deepest level of the mind. To receive the mark on the <strong>right hand</strong> is to surrender one's actions and conduct to the beast's system — complying in deed even without sincere conviction behind it.</p>
+      <p>Scripture therefore describes two categories of those who receive the mark: those who are fully deceived (forehead — genuine belief in the counterfeit), and those who comply outwardly for survival (hand — behavioral compliance without inner conviction). <strong>Both receive the mark.</strong> God calls for wholeness: clean hands <em>and</em> a pure heart — actions and thoughts unified in loyalty to Him (<a href="https://www.biblegateway.com/passage/?search=Psalms+24:4&version=NKJV" target="_blank" class="verse-link">Psalm 24:4</a>).</p>
+    </div>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><span class="divider-icon">✦</span><div class="divider-line"></div></div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION V — DANIEL 7:25 / GOD'S OWN HAND
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">V</span><div class="section-rule"></div></div>
+    <h3>Daniel 7:25 — Changing What God Wrote with His Own Hand</h3>
+    <p class="section-subtitle">The beast alters the only law in Scripture literally inscribed by the finger of God</p>
+
+    <div class="scripture">
+      <p class="scripture-label"><a href="https://www.biblegateway.com/passage/?search=Daniel+7:25&version=NKJV" target="_blank" class="verse-link">Daniel 7:25</a></p>
+      <p>"He will speak out against the Most High and wear down the saints of the Highest One, and he will intend to make <strong>alterations in times and in law</strong>…"</p>
+      <cite><a href="https://www.biblegateway.com/passage/?search=Daniel+7:25&version=NKJV" target="_blank" class="verse-link">Daniel 7:25 (NKJV)</a></cite>
+    </div>
+
+    <div class="language-block">
+      <p class="lang-label">Aramaic — <a href="https://www.biblegateway.com/passage/?search=Daniel+7:25&version=NKJV" target="_blank" class="verse-link">Daniel 7:25</a></p>
+      <div class="lang-entry">
+        <span class="lang-term">זִמְנִין (zimniyn) — divinely appointed sacred times</span>
+        <span class="lang-transliteration">zim-neen'</span>
+        <span class="lang-definition">Not secular calendar time — the <em>moedim</em> of God's covenant calendar. Sacred times God Himself appointed and sanctified.</span>
+      </div>
+      <div class="lang-entry">
+        <span class="lang-term">דָּת (dāt) — law, authoritative decree</span>
+        <span class="lang-transliteration">daw't</span>
+        <span class="lang-definition">Backed by institutional legal power (cf. <a href="https://www.biblegateway.com/passage/?search=Daniel+6:5&version=NKJV" target="_blank" class="verse-link">Daniel 6:5</a>; <a href="https://www.biblegateway.com/passage/?search=Esther+1:13&version=NKJV" target="_blank" class="verse-link">Esther 1:13</a>). The beast does not merely suggest change — it <strong>legislates</strong> it through civil-religious authority.</span>
+      </div>
+    </div>
+
+    <div class="scripture">
+      <p class="scripture-label">Exodus 31:18 · <a href="https://www.biblegateway.com/passage/?search=Deuteronomy+9:10&version=NKJV" target="_blank" class="verse-link">Deuteronomy 9:10</a> — Written by the Finger of God</p>
+      <p>"He gave Moses the two tablets of the testimony, <strong>tablets of stone, written by the finger of God</strong>." — <a href="https://www.biblegateway.com/passage/?search=Exodus+31:18&version=NKJV" target="_blank" class="verse-link">Exodus 31:18</a></p>
+      <p>"The LORD gave me the two tablets of stone <strong>written by the finger of God</strong>; and on them were all the words which the LORD had spoken…" — <a href="https://www.biblegateway.com/passage/?search=Deuteronomy+9:10&version=NKJV" target="_blank" class="verse-link">Deuteronomy 9:10</a></p>
+      <cite>NASB</cite>
+    </div>
+
+    <div class="language-block">
+      <p class="lang-label">Hebrew — <a href="https://www.biblegateway.com/passage/?search=Exodus+31:18&version=NKJV" target="_blank" class="verse-link">Exodus 31:18</a></p>
+      <div class="lang-entry">
+        <span class="lang-term">אֶצְבַּע אֱלֹהִים (ʾetsbaʿ ʾĕlōhîm)</span>
+        <span class="lang-transliteration">'ets-bah' el-o-heem' — the finger of God</span>
+        <span class="lang-definition">The Ten Commandments are the only law in all of Scripture identified as being <strong>literally inscribed by God's own hand</strong> — not dictated through a prophet or delivered through an angel. God Himself engraved them on stone. The Decalogue carries a category of divine authority that no other written law possesses. The only commandment that is simultaneously a <em>law (dāt)</em> and governs <em>sacred time (zimniyn)</em> is the <strong>Sabbath commandment</strong> (<a href="https://www.biblegateway.com/passage/?search=Exodus+20:8–11&version=NKJV" target="_blank" class="verse-link">Exodus 20:8–11</a>). When the beast alters this commandment, it claims the power to overwrite what God physically wrote.</span>
+      </div>
+    </div>
+
+    <div class="scripture">
+      <p class="scripture-label"><a href="https://www.biblegateway.com/passage/?search=Matthew+5:18&version=NKJV" target="_blank" class="verse-link">Matthew 5:18</a>— Jesus on the Permanence of the Law</p>
+      <p>"For truly I say to you, <strong>until heaven and earth pass away, not the smallest letter or stroke shall pass from the Law until all is accomplished</strong>."</p>
+      <cite><a href="https://www.biblegateway.com/passage/?search=Matthew+5:18&version=NKJV" target="_blank" class="verse-link">Matthew 5:18 (NKJV)</a></cite>
+    </div>
+
+    <div class="insight-card">
+      <p class="card-label">The Law Written by God's Own Hand Cannot Be Erased by Human Authority</p>
+      <p>Jesus' words in <a href="https://www.biblegateway.com/passage/?search=Matthew+5:18&version=NKJV" target="_blank" class="verse-link">Matthew 5:18</a> are an explicit declaration: not even the smallest mark of the law God gave would pass away while heaven and earth remain. The Greek word <em>iōta</em> — the tiniest letter of the Greek alphabet, corresponding to the Hebrew <em>yod</em> — is used to indicate the most minute detail of the law. If the smallest stroke cannot be removed, the commandment inscribed by God's own finger certainly cannot be overwritten by institutional decree. The beast's claim to alter the Sabbath — the commandment written by God's literal hand — is precisely the kind of human presumption that <a href="https://www.biblegateway.com/passage/?search=Matthew+5:18&version=NKJV" target="_blank" class="verse-link">Matthew 5:18</a> directly excludes.</p>
+    </div>
+
+    <p>Daniel 7:25 predicted that the beast-power would change God's times and law. The historical record shows that change was specific, documented, and affected not just the Sabbath but the very structure of the Ten Commandments as transmitted through institutional catechisms. The changes are traceable:</p>
+
+    <table class="trinity-table">
+      <thead>
+        <tr>
+          <th>Commandment</th>
+          <th>Biblical Form (Exodus 20)</th>
+          <th>Institutional Catechetical Form</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2nd Commandment</td>
+          <td>Explicitly prohibits the making and veneration of graven images and likenesses (<a href="https://www.biblegateway.com/passage/?search=Exodus+20:4–6&version=NKJV" target="_blank" class="verse-link">Exodus 20:4–6</a>)</td>
+          <td>Merged with the 1st commandment and removed from the numbered list — effectively erasing the prohibition on image veneration from the catechetical framework taught to millions</td>
+        </tr>
+        <tr>
+          <td>4th Commandment</td>
+          <td>"Remember the Sabbath day, to keep it holy… the seventh day is a sabbath of the LORD your God" (<a href="https://www.biblegateway.com/passage/?search=Exodus+20:8–10&version=NKJV" target="_blank" class="verse-link">Exodus 20:8–10</a>)</td>
+          <td>Sunday observance (the first day) substituted as the weekly day of worship — on the basis of church authority rather than scriptural command</td>
+        </tr>
+        <tr>
+          <td>10th Commandment</td>
+          <td>One unified commandment prohibiting covetousness (<a href="https://www.biblegateway.com/passage/?search=Exodus+20:17&version=NKJV" target="_blank" class="verse-link">Exodus 20:17</a>)</td>
+          <td>Divided into two commandments to restore the total count to ten after the 2nd was removed — restructuring the Decalogue while altering its content</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="historical-note">
+      <p class="hist-label">Historical Documentation: The Transfer of the Sabbath and the Role of Roman Solar Culture</p>
+      <p>The gradual institutional transfer of the weekly sacred day from the seventh day (Saturday) to the first day (Sunday) is documented in early church history. Emperor Constantine's civil edict of 321 CE — the first instance of civil law enforcing a day of worship not found in Scripture — designated Sunday as the "venerable day of the Sun" (<em>dies Solis</em>), a term drawn directly from Roman solar veneration, including the cult of Sol Invictus (the Unconquered Sun), which was widely practiced in the empire. The Council of Laodicea (c. 363–364 CE, Canon 29) then legislated that Christians must not rest on the Sabbath but must prefer Sunday — embedding the transfer in religious law.</p>
+      <p>Medieval theological writings openly acknowledged that the change of the Sabbath rested not on biblical command but on the church's own claimed authority — presenting this authority as proof of the church's power to supersede Scripture. This is precisely <a href="https://www.biblegateway.com/passage/?search=Daniel+7:25&version=NKJV" target="_blank" class="verse-link">Daniel 7:25</a>'s <em>dāt</em>-changing power: the beast speaks against the Most High not by denying Him, but by claiming the right to rewrite what He wrote.</p>
+    </div>
+
+    <div class="section-conclusion">
+      The Mark of the Beast is the willful breaking of God's Ten Commandments — carried out in His name. A system that claims to speak for God while overwriting what God wrote is not obedience. It is the deepest form of contradiction: lawlessness dressed as worship.
+    </div>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><span class="divider-icon">✦</span><div class="divider-line"></div></div>
+
+  <h2 class="extra-credit-heading">Extra Credit</h2>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION VI — THE SABBATH IS NOT JEWISH
+       *** NEW SECTION ***
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">VI</span><div class="section-rule"></div></div>
+    <h3>The Sabbath Is Not Jewish — It Was Given to All Humanity in Eden</h3>
+    <p class="section-subtitle">The Sabbath predates Israel, predates Sinai, and was kept by every faithful follower of God in Scripture</p>
+
+    <p class="intro-block">The most common objection to the Sabbath's continuing relevance is the assumption that it was a Jewish institution — given exclusively to Israel at Sinai and therefore inapplicable to all others. Scripture does not support this conclusion. The Sabbath was not created at Sinai. It was established in Eden, two and a half millennia before a Jewish nation existed — and it was observed by every person in the biblical record who walked faithfully with God.</p>
+
+    <div class="scripture">
+      <p class="scripture-label"><a href="https://www.biblegateway.com/passage/?search=Genesis+2:1–3&version=NKJV" target="_blank" class="verse-link">Genesis 2:1–3</a>— The Sabbath at Creation</p>
+      <p>"Thus the heavens and the earth were completed, and all their hosts. By the seventh day God completed His work which He had done, and He <strong>rested on the seventh day</strong> from all His work which He had done. Then God <strong>blessed the seventh day and sanctified it</strong>, because in it He rested from all His work which God had created and made."</p>
+      <cite><a href="https://www.biblegateway.com/passage/?search=Genesis+2:1–3&version=NKJV" target="_blank" class="verse-link">Genesis 2:1–3 (NKJV)</a></cite>
+    </div>
+
+    <div class="language-block">
+      <p class="lang-label">Hebrew — <a href="https://www.biblegateway.com/passage/?search=Genesis+2:2–3&version=NKJV" target="_blank" class="verse-link">Genesis 2:2–3</a></p>
+      <div class="lang-entry">
+        <span class="lang-term">שָׁבַת (šābat)</span>
+        <span class="lang-transliteration">shaw-bat' — to cease, rest, desist from labor</span>
+        <span class="lang-definition">The root from which <em>Shabbat</em> (Sabbath) derives. God's act of ceasing on the seventh day is the originating pattern — not a cultural regulation given to one nation, but a <strong>creational rhythm embedded into the structure of time itself</strong>. The seventh day was sanctified before any human institution, nation, or covenant existed.</span>
+      </div>
+      <div class="lang-entry">
+        <span class="lang-term">וַיְקַדֵּשׁ (vaykadesh) — He sanctified it</span>
+        <span class="lang-transliteration">vay-ka-desh' — to set apart as holy</span>
+        <span class="lang-definition">God did not merely designate the seventh day as a day of rest — He <strong>hallowed it</strong>, setting it apart as sacred within creation itself. Holiness was woven into the day, not into a particular people. The Sabbath was holy before Moses, before Abraham, before Adam had lived a week.</span>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <p class="card-label">Jesus Settles the Question Directly</p>
+      <p>"The <strong>Sabbath was made for man</strong> (<em>anthrōpos</em>), and not man for the Sabbath." — <strong>Mark 2:27</strong></p>
+      <p>The Greek word <em>anthrōpos</em> means <em>humanity</em> — human beings as a whole, not a specific ethnic group. Jesus did not say the Sabbath was made for Jews. He said it was made for <em>man</em> — the same word used in <a href="https://www.biblegateway.com/passage/?search=John+3:16&version=NKJV" target="_blank" class="verse-link">John 3:16</a> ("God so loved the world") and <a href="https://www.biblegateway.com/passage/?search=Romans+5:12&version=NKJV" target="_blank" class="verse-link">Romans 5:12</a> ("sin entered through one man into all mankind"). The Sabbath was given to humanity at creation and belongs to all who bear the image of God.</p>
+    </div>
+
+    <p>The Sabbath's presence in Scripture <em>before</em> the giving of the law at Sinai further confirms its pre-national, universal character. In <a href="https://www.biblegateway.com/passage/?search=Exodus+16:23–26&version=NKJV" target="_blank" class="verse-link">Exodus 16:23–26</a>, God commanded Israel to observe the Sabbath <strong>before</strong> the Ten Commandments were formally inscribed on stone — indicating that the Sabbath was already a known institution, not a new Sinaitic invention. It was being recovered, not created. This is why the commandment in <a href="https://www.biblegateway.com/passage/?search=Exodus+20:8&version=NKJV" target="_blank" class="verse-link">Exodus 20:8</a> begins with the word <strong>"Remember"</strong> — not "observe for the first time." Centuries of brutal slavery in Egypt had severed Israel's connection to their history and their God. The rhythms of creation, including the sanctity of the seventh day, had been buried under generations of bondage in a land that did not honor the God of Eden. God was not introducing something new — He was <em>restoring</em> something ancient and essential that His people had been forced to forget. The Sabbath was so foundational to their identity as His people that He enshrined it permanently in stone — engraved by His own finger alongside nine other commandments — so that no empire, no slavery, and no institution could ever erase it again.</p>
+
+    <div class="scripture">
+      <p class="scripture-label"><a href="https://www.biblegateway.com/passage/?search=Genesis+26:5&version=NKJV" target="_blank" class="verse-link">Genesis 26:5</a>— Abraham Kept God's Commandments</p>
+      <p>"…because Abraham obeyed Me and kept My charge, My commandments, My statutes, and My laws."</p>
+      <cite><a href="https://www.biblegateway.com/passage/?search=Genesis+26:5&version=NKJV" target="_blank" class="verse-link">Genesis 26:5 (NKJV)</a></cite>
+    </div>
+
+    <p>Abraham lived centuries before Sinai. Yet God credits him with keeping His commandments, statutes, and laws in full. The moral law — including the Sabbath — was known and observed by the patriarchs long before it was engraved in stone.</p>
+
+    <!-- TIMELINE -->
+    <p style="font-family:'Cinzel',serif; font-size:10px; letter-spacing:0.3em; color:var(--gold-dim); text-transform:uppercase; margin: 28px 0 14px;">Sabbath Observance Through Biblical History</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <p class="ti-ref">Genesis 2:1–3 — Creation Week</p>
+        <p class="ti-text">God establishes, blesses, and sanctifies the seventh day. The Sabbath enters history. No nation. No Sinai. No law yet given. Only God and humanity.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="ti-ref">Genesis 26:5 — Abraham (c. 2000 BCE)</p>
+        <p class="ti-text">God commends Abraham for keeping "My commandments, My statutes, and My laws" — centuries before the Mosaic covenant.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="ti-ref">Exodus 16:23–26 — Israel in the Wilderness (before Sinai)</p>
+        <p class="ti-text">God commands Sabbath rest before the Ten Commandments are given at Sinai. The word <strong>"Remember"</strong> in the later <a href="https://www.biblegateway.com/passage/?search=Exodus+20:8&version=NKJV" target="_blank" class="verse-link">Exodus 20:8</a> command is telling — Israel had not forgotten a new rule; they had lost an ancient one. Generations of slavery in Egypt had stripped them of their sacred history. God was <em>restoring</em> the Sabbath to a people whose bondage had buried it, then making it permanent — inscribed in stone by His own hand — so no power on earth could take it from them again.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="ti-ref">Exodus 20:8–11 — Mount Sinai</p>
+        <p class="ti-text">The Sabbath commandment is inscribed by God's own finger — grounding the commandment in <em>creation</em>, not in Israel's ethnic identity: <em>"for in six days the LORD made the heavens and the earth…"</em></p>
+      </div>
+      <div class="timeline-item">
+        <p class="ti-ref">Isaiah 56:2–7 — Extended to All Nations</p>
+        <p class="ti-text">"Also the foreigners who join themselves to the LORD… every one who keeps from profaning the Sabbath… them I will bring to My holy mountain." The Sabbath is explicitly extended to <em>all who love God</em>, regardless of ethnic origin.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="ti-ref">Isaiah 66:22–23 — The New Earth</p>
+        <p class="ti-text">"From one New Moon to another and from one Sabbath to another, <strong>all mankind</strong> will come to bow down before Me, says the LORD." The Sabbath is not abolished in eternity — it is the eternal rhythm of worship for all humanity in the restored creation.</p>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <p class="card-label">Every Faithful Person in Scripture Kept the Seventh-Day Sabbath</p>
+      <p>From Adam and Eve, who experienced the first Sabbath rest in Eden, to Abraham, who kept God's commandments before Sinai; from Moses and Israel, who observed it in the wilderness before it was written in stone, to the prophets, who called Israel back to it — <strong>every follower of God in the biblical record honored the seventh-day Sabbath</strong>. It was never a mark of ethnicity. It was always a mark of covenant loyalty to the Creator.</p>
+    </div>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><span class="divider-icon">✦</span><div class="divider-line"></div></div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION VII — JESUS AND THE DISCIPLES KEPT THE SABBATH
+       *** NEW SECTION ***
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">VII</span><div class="section-rule"></div></div>
+    <h3>Jesus and His Disciples Kept the Seventh-Day Sabbath</h3>
+    <p class="section-subtitle">From the Gospels through the Book of Acts, the Sabbath remained the day of worship for every follower of Christ</p>
+
+    <p class="intro-block">If the Sabbath had been abolished at the cross, one would expect to find its abolition declared in the New Testament with clarity. Instead, what the New Testament records is consistent, unbroken Sabbath observance — by Jesus, by His disciples, by the apostle Paul, and by Gentile believers — from the Galilean hills through the cities of the Roman world.</p>
+
+    <div class="scripture">
+      <p class="scripture-label"><a href="https://www.biblegateway.com/passage/?search=Luke+4:16&version=NKJV" target="_blank" class="verse-link">Luke 4:16</a>— Jesus' Custom</p>
+      <p>"And He came to Nazareth, where He had been brought up; and <strong>as was His custom, He entered the synagogue on the Sabbath day</strong>, and stood up to read."</p>
+      <cite><a href="https://www.biblegateway.com/passage/?search=Luke+4:16&version=NKJV" target="_blank" class="verse-link">Luke 4:16 (NKJV)</a></cite>
+    </div>
+
+    <div class="language-block">
+      <p class="lang-label">Greek — <a href="https://www.biblegateway.com/passage/?search=Luke+4:16&version=NKJV" target="_blank" class="verse-link">Luke 4:16</a></p>
+      <div class="lang-entry">
+        <span class="lang-term">κατὰ τὸ εἰωθὸς αὐτῷ (kata to eiōthos autō)</span>
+        <span class="lang-transliteration">"according to His custom / His established habit"</span>
+        <span class="lang-definition"><em>Eiōthos</em> denotes a settled, regular practice — not an occasional or cultural accommodation. Jesus observed the Sabbath <strong>habitually and consistently</strong>. It was not something He did to blend in with Jewish culture; it was His established pattern of life. The One who created the Sabbath (<a href="https://www.biblegateway.com/passage/?search=John+1:3&version=NKJV" target="_blank" class="verse-link">John 1:3</a>; <a href="https://www.biblegateway.com/passage/?search=Colossians+1:16&version=NKJV" target="_blank" class="verse-link">Colossians 1:16</a>) honored it as a creature honors the institution of his Creator.</span>
+      </div>
+    </div>
+
+    <div class="scripture">
+      <p class="scripture-label"><a href="https://www.biblegateway.com/passage/?search=Luke+23:56&version=NKJV" target="_blank" class="verse-link">Luke 23:56</a>— After the Crucifixion</p>
+      <p>"And they returned and prepared spices and perfumes. And on the Sabbath they <strong>rested according to the commandment</strong>."</p>
+      <cite><a href="https://www.biblegateway.com/passage/?search=Luke+23:56&version=NKJV" target="_blank" class="verse-link">Luke 23:56 (NKJV)</a></cite>
+    </div>
+
+    <div class="insight-card">
+      <p class="card-label">They Rested — After the Cross — Because of the Commandment</p>
+      <p>This verse is one of the most powerful in the New Testament on this subject. The crucifixion has occurred. Jesus is in the tomb. And Luke records that the women — followers of Jesus — rested on the Sabbath <em>according to the commandment</em>. If the cross had abolished the Sabbath, Luke would not have recorded their rest as a fulfillment of the commandment. The commandment was still in force. The women kept it. They did so <em>between</em> the cross and the resurrection.</p>
+    </div>
+
+    <div class="scripture">
+      <p class="scripture-label"><a href="https://www.biblegateway.com/passage/?search=Matthew+24:20&version=NKJV" target="_blank" class="verse-link">Matthew 24:20</a>— Jesus Assumes Future Sabbath Observance</p>
+      <p>"But pray that your flight will not be in the winter, or on a <strong>Sabbath</strong>."</p>
+      <cite><a href="https://www.biblegateway.com/passage/?search=Matthew+24:20&version=NKJV" target="_blank" class="verse-link">Matthew 24:20 (NKJV)</a></cite>
+    </div>
+
+    <p>This prophecy was given by Jesus concerning the destruction of Jerusalem — an event that occurred in 70 CE, forty years after the crucifixion. Jesus assumed His followers would still be observing the Sabbath decades after the cross, to the extent that flight on that day would cause hardship. He does not instruct them that the Sabbath will no longer matter. He tells them to <em>pray</em> they would not need to flee on it.</p>
+
+    <table class="nt-table">
+      <thead>
+        <tr><th>Reference</th><th>Who</th><th>What the Record Shows</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Mark 1:21</td>
+          <td class="who">Jesus</td>
+          <td>Jesus taught in the synagogue at Capernaum on the Sabbath.</td>
+        </tr>
+        <tr>
+          <td>Luke 6:6</td>
+          <td class="who">Jesus</td>
+          <td>Jesus entered the synagogue and taught on another Sabbath.</td>
+        </tr>
+        <tr>
+          <td>Luke 13:10</td>
+          <td class="who">Jesus</td>
+          <td>Jesus was teaching in a synagogue on the Sabbath — one of many such occasions.</td>
+        </tr>
+        <tr>
+          <td>Luke 23:56</td>
+          <td class="who">Women Disciples</td>
+          <td>After the crucifixion, they rested on the Sabbath <em>according to the commandment</em>.</td>
+        </tr>
+        <tr>
+          <td>Acts 13:14, 42–44</td>
+          <td class="who">Paul &amp; Barnabas</td>
+          <td>They worshiped in the synagogue on the Sabbath. <strong>Gentiles</strong> then begged them to return on the next Sabbath — and nearly the whole city gathered to hear on that Sabbath day.</td>
+        </tr>
+        <tr>
+          <td>Acts 16:13</td>
+          <td class="who">Paul &amp; companions</td>
+          <td>"On the Sabbath day we went outside the gate to a riverside, where we were supposing that there would be a place of prayer." Paul went to a place of Sabbath worship in Philippi — a Gentile city with no synagogue.</td>
+        </tr>
+        <tr>
+          <td>Acts 17:2</td>
+          <td class="who">Paul</td>
+          <td>"According to Paul's custom, he went to them, and for three Sabbaths reasoned with them from the Scriptures." Paul's Sabbath worship was his established <em>custom</em> — the same word used of Jesus in <a href="https://www.biblegateway.com/passage/?search=Luke+4:16&version=NKJV" target="_blank" class="verse-link">Luke 4:16</a>.</td>
+        </tr>
+        <tr>
+          <td>Acts 18:4</td>
+          <td class="who">Paul</td>
+          <td>"He was reasoning in the synagogue <strong>every Sabbath</strong> and trying to persuade Jews and Greeks." Paul reasoned with <em>Greeks</em> — Gentiles — on the Sabbath, every week.</td>
+        </tr>
+        <tr>
+          <td>Hebrews 4:9</td>
+          <td class="who">The Believers</td>
+          <td>"So there remains a <strong>Sabbath rest (σαββατισμός)</strong> for the people of God." Written after the cross, to a Christian audience. The Sabbath rest is declared still to <em>remain</em> for God's people.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="language-block">
+      <p class="lang-label">Greek — <a href="https://www.biblegateway.com/passage/?search=Hebrews+4:9&version=NKJV" target="_blank" class="verse-link">Hebrews 4:9</a></p>
+      <div class="lang-entry">
+        <span class="lang-term">σαββατισμός (sabbatismos)</span>
+        <span class="lang-transliteration">sab-bat-is-mos' — a Sabbath-keeping, Sabbath observance</span>
+        <span class="lang-definition">This word appears only once in the New Testament — here. The author of Hebrews did not use <em>katapausis</em> (general rest) to describe what remains for God's people; he used a word that specifically means <strong>Sabbath-observance</strong>. Written to a community of believers after the death and resurrection of Christ, this text declares that a Sabbath-keeping <em>remains</em> — present tense — for the people of God. It is not presented as something abolished, completed, or replaced.</span>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <p class="card-label">Not One Text Abolishes the Sabbath — or the Ten Commandments</p>
+      <p>The New Testament records no command from Jesus to stop keeping the Sabbath. It records no declaration from any apostle that the Sabbath is abolished. It records no instruction to transfer sacred worship to the first day of the week. What it records — consistently, from the Gospels through Acts through Hebrews — is that Jesus kept the Sabbath as His custom, His disciples kept it at the cross, Paul kept it as his custom in every city he visited (including with Gentiles), and that a Sabbath-keeping still remains for the people of God.</p>
+      <p>Nor does the New Testament abolish the Ten Commandments. The Decalogue — the law written by God's own finger — remains the moral foundation of Scripture from Sinai to the final pages of Revelation. Paul, the apostle most frequently cited in arguments for the law's obsolescence, addresses this directly:</p>
+    </div>
+
+    <div class="scripture">
+      <p class="scripture-label"><a href="https://www.biblegateway.com/passage/?search=Romans+3:31&version=NKJV" target="_blank" class="verse-link">Romans 3:31</a>— Paul on the Law</p>
+      <p>"Do we then nullify the Law through faith? <strong>May it never be! On the contrary, we establish the Law.</strong>"</p>
+      <cite><a href="https://www.biblegateway.com/passage/?search=Romans+3:31&version=NKJV" target="_blank" class="verse-link">Romans 3:31 (NKJV)</a></cite>
+    </div>
+
+    <div class="insight-card">
+      <p class="card-label">Faith Establishes — Not Abolishes — the Law</p>
+      <p>The Greek verb translated "nullify" is <em>katargoumen</em> — to render idle, to make of no effect, to abolish. Paul's answer is an emphatic <em>mē genoito</em> — "May it never be!" — the strongest possible Greek negation, used elsewhere only when rejecting the most scandalous propositions. Faith in Christ does not make the law irrelevant. Paul says it does the opposite: it <strong>establishes</strong> the law. The word <em>histanomen</em> means to make to stand, to confirm, to uphold. Grace does not erase what God wrote with His own finger. It fulfills it — and calls the believer into alignment with it.</p>
+      <p>The transfer of worship from the seventh day to the first day is not a biblical development. It is precisely what <a href="https://www.biblegateway.com/passage/?search=Daniel+7:25&version=NKJV" target="_blank" class="verse-link">Daniel 7:25</a> predicted: an institutional change to times and law accomplished through human authority, not divine command — and directly contradicted by the apostle who wrote more of the New Testament than anyone else.</p>
+    </div>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><span class="divider-icon">✦</span><div class="divider-line"></div></div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION VIII — THE SABBATH AS SEAL OF GOD
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">VIII</span><div class="section-rule"></div></div>
+    <h3>The Sabbath as the Seal of God</h3>
+    <p class="section-subtitle">The mark of the beast is most clearly identified by what it counterfeits</p>
+
+    <div class="scripture">
+      <p class="scripture-label">Exodus 31:13 · <a href="https://www.biblegateway.com/passage/?search=Ezekiel+20:12&version=NKJV" target="_blank" class="verse-link">Ezekiel 20:12</a> — The Sabbath as Sign</p>
+      <p>"You shall surely observe My sabbaths; for this is a <strong>sign (אוֹת, ʾôt)</strong> between Me and you throughout your generations, that you may know that I am the LORD who sanctifies you." — <a href="https://www.biblegateway.com/passage/?search=Exodus+31:13&version=NKJV" target="_blank" class="verse-link">Exodus 31:13</a></p>
+      <p>"Also I gave them My sabbaths to be a <strong>sign</strong> between Me and them, that they might know that I am the LORD who sanctifies them." — <a href="https://www.biblegateway.com/passage/?search=Ezekiel+20:12&version=NKJV" target="_blank" class="verse-link">Ezekiel 20:12</a></p>
+      <cite>NASB</cite>
+    </div>
+
+    <div class="language-block">
+      <p class="lang-label">The Sabbath Commandment as a Royal Seal — <a href="https://www.biblegateway.com/passage/?search=Exodus+20:8–11&version=NKJV" target="_blank" class="verse-link">Exodus 20:8–11</a></p>
+      <div class="lang-entry">
+        <span class="lang-term">Three Elements of an Ancient Royal Seal</span>
+        <span class="lang-transliteration">Name · Title · Territory</span>
+        <span class="lang-definition">In the ancient world, an official seal contained three elements: the ruler's <strong>name</strong>, the ruler's <strong>title</strong>, and the <strong>territory</strong> of their authority. The Sabbath commandment alone in the Decalogue contains all three: <strong>Name</strong> — "the LORD your God"; <strong>Title</strong> — Creator ("who made"); <strong>Territory</strong> — "heaven and earth and sea and all that is in them" (<a href="https://www.biblegateway.com/passage/?search=Exodus+20:11&version=NKJV" target="_blank" class="verse-link">Exodus 20:11</a>). No other commandment functions as a seal in this complete sense — and no other commandment was written by God's own finger with a direct claim to creative authority over all existence.</span>
+      </div>
+    </div>
+
+    <div class="seal-contrast">
+      <div class="seal-panel beast">
+        <p class="sp-label">Mark of the Beast — The Counterfeit Brand</p>
+        <ul>
+          <li>Forehead &amp; hand — counterfeit allegiance</li>
+          <li>Instituted by human-ecclesiastical authority</li>
+          <li>Sunday: no creation or Scriptural foundation</li>
+          <li>Enforced through civil-religious law</li>
+          <li>Overrides what God's own finger wrote</li>
+          <li>Daniel 7:25; <a href="https://www.biblegateway.com/passage/?search=Revelation+13:16–17&version=NKJV" target="_blank" class="verse-link">Revelation 13:16–17</a></li>
+        </ul>
+      </div>
+      <div class="seal-panel god">
+        <p class="sp-label">Seal of God — The Authentic Sign</p>
+        <ul>
+          <li>Forehead — thoughts consecrated to God</li>
+          <li>Instituted by God at creation, Eden (<a href="https://www.biblegateway.com/passage/?search=Genesis+2:2–3&version=NKJV" target="_blank" class="verse-link">Genesis 2:2–3</a>)</li>
+          <li>Seventh-day Sabbath: memorial of the Creator</li>
+          <li>Written by God's literal finger (<a href="https://www.biblegateway.com/passage/?search=Exodus+31:18&version=NKJV" target="_blank" class="verse-link">Exodus 31:18</a>)</li>
+          <li>Kept by Jesus and every apostle (<a href="https://www.biblegateway.com/passage/?search=Luke+4:16&version=NKJV" target="_blank" class="verse-link">Luke 4:16</a>; <a href="https://www.biblegateway.com/passage/?search=Acts+17:2&version=NKJV" target="_blank" class="verse-link">Acts 17:2</a>)</li>
+          <li>Exodus 31:13; <a href="https://www.biblegateway.com/passage/?search=Revelation+14:1,+12&version=NKJV" target="_blank" class="verse-link">Revelation 14:1, 12</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <p class="card-label">When Does the Mark Become the Mark?</p>
+      <p>The mark of the beast is a <em>future, enforced</em> requirement — not a present condition. Sunday worship observed by personal conviction or inherited tradition carries no prophetic condemnation at this time. The mark is received when a <strong>legal-institutional system</strong> demands Sunday observance as a test of loyalty — and an individual, <em>knowing the difference</em>, consciously chooses to comply rather than obey God's commandment. Conscious allegiance under pressure, not ignorance, is the defining condition. Those who do not yet know are not yet accountable for what they have not yet seen.</p>
+    </div>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><span class="divider-icon">✦</span><div class="divider-line"></div></div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION IX — KEY LESSONS
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header"><span class="section-num">IX</span><div class="section-rule"></div></div>
+    <h3>Key Lessons from Part 2</h3>
+
+    <div class="key-lessons">
+      <ul>
+        <li>The mark of the beast is fundamentally a <strong>worship issue</strong> — the beast demands the allegiance that belongs to God alone, using economic coercion as its enforcement tool.</li>
+        <li>The word <em>charagma</em> — "mark" — means a <strong>trademark</strong>: the brand of ownership pressed upon those who operate under the beast's authority and system.</li>
+        <li>The beast is a <strong>counterfeit religion</strong> — a false Christianity with a lamb-like appearance that speaks with a <span class="dragon-red">dragon</span>'s authority, claiming to act in God's place on earth (<a href="https://www.biblegateway.com/passage/?search=Revelation+13:11&version=NKJV" target="_blank" class="verse-link">Revelation 13:11</a>; <a href="https://www.biblegateway.com/passage/?search=2+Thessalonians+2:3–4&version=NKJV" target="_blank" class="verse-link">2 Thessalonians 2:3–4</a>).</li>
+        <li>Six is the <strong>number of man</strong>, established at creation on the sixth day. <strong>666</strong> is a false trinity — three powers each bearing the human number, structurally mirroring the divine Trinity: <span class="dragon-red">the dragon</span> (source of authority, counterfeit Father), the sea beast (object of worship, counterfeit Son), and the earth beast / false prophet (enforcer of worship, counterfeit Holy Spirit) — unified in <a href="https://www.biblegateway.com/passage/?search=Revelation+16:13&version=NKJV" target="_blank" class="verse-link">Revelation 16:13</a>, permanently falling short of the divine seven.</li>
+        <li>The <strong>hand symbolizes actions</strong>; the <strong>forehead symbolizes innermost thoughts and convictions</strong> — established across <a href="https://www.biblegateway.com/passage/?search=Exodus+15:6&version=NKJV" target="_blank" class="verse-link">Exodus 15:6</a>, <a href="https://www.biblegateway.com/passage/?search=Deuteronomy+6:8&version=NKJV" target="_blank" class="verse-link">Deuteronomy 6:8</a>, <a href="https://www.biblegateway.com/passage/?search=Ezekiel+9:4&version=NKJV" target="_blank" class="verse-link">Ezekiel 9:4</a>, and <a href="https://www.biblegateway.com/passage/?search=Psalms+24:3–4&version=NKJV" target="_blank" class="verse-link">Psalm 24:3–4</a>. The beast places its mark in both locations as a counterfeit of God's own covenant claim over thought and deed.</li>
+        <li>The Ten Commandments are the only law literally <strong>written by the finger of God</strong> (<a href="https://www.biblegateway.com/passage/?search=Exodus+31:18&version=NKJV" target="_blank" class="verse-link">Exodus 31:18</a>). The beast's alteration of the Sabbath — the one law governing both sacred time and divine statute — is a claim to overwrite God's own handwriting.</li>
+        <li>The <strong>Sabbath is not Jewish</strong> — it was established in Eden (<a href="https://www.biblegateway.com/passage/?search=Genesis+2:1–3&version=NKJV" target="_blank" class="verse-link">Genesis 2:1–3</a>) for all humanity, two and a half millennia before Israel existed. Jesus declared it was made for <em>man</em> (<em>anthrōpos</em> — humanity, <a href="https://www.biblegateway.com/passage/?search=Mark+2:27&version=NKJV" target="_blank" class="verse-link">Mark 2:27</a>). Isaiah declared it universal (<a href="https://www.biblegateway.com/passage/?search=Isaiah+56:2–7&version=NKJV" target="_blank" class="verse-link">Isaiah 56:2–7</a>; 66:22–23).</li>
+        <li><strong>Jesus kept the Sabbath</strong> as His established custom (<a href="https://www.biblegateway.com/passage/?search=Luke+4:16&version=NKJV" target="_blank" class="verse-link">Luke 4:16</a>). His disciples kept it at the cross (<a href="https://www.biblegateway.com/passage/?search=Luke+23:56&version=NKJV" target="_blank" class="verse-link">Luke 23:56</a>). Paul kept it as his custom in every city, including with Gentiles (<a href="https://www.biblegateway.com/passage/?search=Acts+17:2&version=NKJV" target="_blank" class="verse-link">Acts 17:2</a>; 18:4). <a href="https://www.biblegateway.com/passage/?search=Hebrews+4:9&version=NKJV" target="_blank" class="verse-link">Hebrews 4:9</a> declares a Sabbath-keeping (<em>sabbatismos</em>) still remains for God's people — written after the resurrection.</li>
+        <li>The Sabbath is the <strong>seal of God</strong> — bearing God's name, title as Creator, and territory. The counterfeit of this seal is the beast's mark. The Sabbath was written by God; Sunday observance was decreed by men.</li>
+        <li>The mark is not yet enforced. It becomes operative when civil-religious law compels Sunday observance as a loyalty test and the individual — <em>knowing the difference</em> — consciously complies against God's commandment.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CONCLUSION -->
+  <div class="conclusion">
+    <p class="conc-label">Part 2 — Closing Thought</p>
+    <h3>From Eden to Eternity — The Sabbath Has Always Been God's Sign</h3>
+    <p>The Sabbath did not begin at Sinai and end at the cross. It began in Eden, where God Himself rested, blessed, and sanctified the seventh day for <em>man</em>. It was kept by Abraham before there was a nation. It was observed by Jesus as His custom. It was honored by His disciples at the very foot of the cross. It was Paul's practice in every city he entered. And Isaiah declares it will be the rhythm of worship for all humanity in the new earth.</p>
+    <p>The beast's mark is the counterfeit of this eternal sign — a trademark pressed upon those who, knowingly or unknowingly, accept a human institution in the place of what God physically wrote. The forehead and the hand have always been the territory of this contest. God claimed them first, at creation. He claims them still.</p>
+    <p class="final-verse">"Here is the perseverance of the saints who keep the commandments of God and their faith in Jesus."</p>
+    <cite class="final-cite">— <a href="https://www.biblegateway.com/passage/?search=Revelation+14:12&version=NKJV" target="_blank" class="verse-link">Revelation 14:12</a> (NKJV)</cite>
+  </div>
+
+</div>
+</body>
+</html>
